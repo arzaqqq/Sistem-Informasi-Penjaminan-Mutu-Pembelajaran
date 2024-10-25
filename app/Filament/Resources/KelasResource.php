@@ -73,13 +73,11 @@ class KelasResource extends Resource
 
                 Forms\Components\FileUpload::make('file_template')
                     ->label('File Template')
-                    ->required()
                     ->directory('file template kelas')
                     ->preserveFilenames(),
 
                 Forms\Components\FileUpload::make('file_kelas')
                     ->label('File Kontak')
-                    ->required()
                     ->directory('file kontark kelas')
                     ->preserveFilenames(),
             ])
@@ -106,28 +104,29 @@ class KelasResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->formatStateUsing(fn($state) => $state ? 'Aktif' : 'Tidak Aktif'),
-                Tables\Columns\TextColumn::make('file_template')
+                    Tables\Columns\TextColumn::make('file_template')
                     ->label('File Template')
-                    ->formatStateUsing(fn($state) => $state ? 'File Template' : 'No File')
-                    ->url(fn($record) => $record->file_template ? asset("storage/{$record->file_template}") : null)
+                    ->formatStateUsing(fn($state) => $state ? 'File Template' : 'Belum ada file')
+                    ->url(fn($record) => $record->file_template ? asset("storage/{$record->file_template}") : '#')
                     ->openUrlInNewTab()
                     ->extraAttributes([
-                        'style' => 'cursor: pointer; ',
-                        'title' => 'Download File Kontrak',
+                        'style' => 'cursor: pointer;',
+                        'title' => 'Download File Template',
                         'class' => 'hover-underline-primary',
-
                     ]),
+                
                 Tables\Columns\TextColumn::make('file_kelas')
                     ->label('File Kontrak')
-                    ->formatStateUsing(fn($state) => $state ? 'File Kontrak' : 'No File')
-                    ->url(fn($record) => $record->file_kelas ? asset("storage/{$record->file_kelas}") : null)
+                    ->formatStateUsing(fn($state) => $state ? 'File Kontrak' : 'Belum ada file')
+                    ->url(fn($record) => $record->file_kelas ? asset("storage/{$record->file_kelas}") : '#')
                     ->openUrlInNewTab()
                     ->extraAttributes([
-                        'style' => 'cursor: pointer; ',
+                        'style' => 'cursor: pointer;',
                         'title' => 'Download File Kontrak',
                         'class' => 'hover-underline-primary',
-
                     ]),
+                
+                
             ])
             ->filters([
 

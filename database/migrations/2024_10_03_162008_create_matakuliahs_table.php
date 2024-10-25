@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('matakuliahs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->enum('semester', ['Ganjil', 'Genap']);
             $table->string('nama_mk');
             $table->string('file_rps');

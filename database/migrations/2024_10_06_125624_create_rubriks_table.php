@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('rubriks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('matakuliah_id')->constrained('matakuliahs');
-            $table->foreignId('kelas_id')->constrained('kelas');
+            $table->foreignId('matakuliah_id')->constrained('matakuliahs')->onDelete('cascade');
+            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
             $table->json('file_rubrik_quiz');
             $table->json('file_rubrik_latihan');
             $table->string('file_rubrik_uts');
