@@ -61,8 +61,12 @@ class ListPersens extends ListRecords
                     ];
                 }),
 
-                    Forms\Components\TextInput::make('nama_dosen')
+                    Forms\Components\Select::make('nama_dosen')
                         ->label('Nama Dosen')
+                        ->options(function () {
+                           
+                            return \App\Models\User::where('role', 'dosen')->pluck('name', 'id');
+                        })
                         ->required(),
 
                     // Inputan persentase
