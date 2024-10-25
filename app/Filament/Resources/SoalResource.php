@@ -66,7 +66,7 @@ class SoalResource extends Resource
             
                 // Form components for file uploads
                 Forms\Components\FileUpload::make('quiz')
-                    ->label('Quiz Files')
+                    ->label(' File Quiz ')
                     ->directory('File Soal quiz')
                     ->preserveFilenames()
                     ->multiple()
@@ -76,20 +76,20 @@ class SoalResource extends Resource
                     ->required(),
 
                 Forms\Components\FileUpload::make('latihan')
-                    ->label('Latihan Files')
+                    ->label('File Latihan ')
                     ->directory('File Soal Latihan')
                     ->preserveFilenames()
                     ->multiple()
                     ->required(),
 
                 Forms\Components\FileUpload::make('UTS')
-                    ->label('UTS File')
+                    ->label('File UTS ')
                     ->directory('Soal UTS')
                     ->preserveFilenames()
                     ->required(), // No multiple files for UTS
 
                 Forms\Components\FileUpload::make('UAS')
-                    ->label('UAS File')
+                    ->label('File UAS ')
                     ->directory('Soal UAS')
                     ->preserveFilenames()
                     ->required(), // No multiple files for UAS

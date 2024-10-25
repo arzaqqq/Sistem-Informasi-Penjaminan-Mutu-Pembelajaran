@@ -72,26 +72,26 @@ class RubrikResource extends Resource
                     ->required()
                     ->multiple() // Menandakan bahwa ini adalah array file
                     ->preserveFilenames()
-                    ->directory('rubrik'),
+                    ->directory('rubrik quiz'),
 
                 FileUpload::make('file_rubrik_latihan')
                     ->label('File Rubrik Latihan')
                     ->required()
                     ->multiple() // Menandakan bahwa ini adalah array file
                     ->preserveFilenames()
-                    ->directory('rubrik'),
+                    ->directory('rubrik latiahan'),
 
                 FileUpload::make('file_rubrik_uts')
                     ->label('File Rubrik UTS')
                     ->required()
                     ->preserveFilenames()
-                    ->directory('rubrik'),
+                    ->directory('rubrik UTS'),
 
                 FileUpload::make('file_rubrik_uas')
                     ->label('File Rubrik UAS')
                     ->required()
                     ->preserveFilenames()
-                    ->directory('rubrik'),
+                    ->directory('rubrik UAS'),
             ]);
     }
 
@@ -112,7 +112,7 @@ class RubrikResource extends Resource
 
                 Tables\Columns\TextColumn::make('file_rubrik_quiz')
                     ->label('file rubrik quiz')
-                    ->directory('Rubrik Quiz')
+                 
                     ->formatStateUsing(function ($record) {
                         // Check if the `quiz` field is an array of file paths
                         if (is_array($record->file_rubrik_quiz)) {
@@ -139,7 +139,7 @@ class RubrikResource extends Resource
 
                 Tables\Columns\TextColumn::make('file_rubrik_latihan')
                     ->label('file rubrik latihan')
-                    ->directory('Rubrik Latiahan')
+                  
                     ->formatStateUsing(function ($record) {
                         // Check if the `latihan` field is an array of file paths
                         if (is_array($record->file_rubrik_latihan)) {
@@ -168,7 +168,7 @@ class RubrikResource extends Resource
 
                 Tables\Columns\TextColumn::make('file_rubrik_uts')
                     ->label('File Rubrik UTS')
-                    ->directory('Rubrik UTS')
+                    
                     ->formatStateUsing(fn($state) => $state ? "<a href='" . asset('storage/' . $state) . "' target='_blank'>Lihat File</a>" : 'No File')
                     ->html()
                     ->extraAttributes(['style' => 'text-align: left;'])
@@ -176,7 +176,7 @@ class RubrikResource extends Resource
 
                 Tables\Columns\TextColumn::make('file_rubrik_uas')
                     ->label('File Rubrik UAS')
-                    ->directory('Rubrik UAS')
+                 
                     ->formatStateUsing(fn($state) => $state ? "<a href='" . asset('storage/' . $state) . "' target='_blank'>Lihat File</a>" : 'No File')
                     ->html()
                     ->extraAttributes(['style' => 'text-align: left;'])

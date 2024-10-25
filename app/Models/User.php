@@ -64,4 +64,9 @@ class User extends Authenticatable implements HasAvatar
     {
         return $this->hasMany(Survey::class);
     }
+
+    public function persen()
+    {
+        return $this->hasMany(Persen::class);
+    }
 }

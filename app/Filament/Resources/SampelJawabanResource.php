@@ -42,25 +42,25 @@ class SampelJawabanResource extends Resource
 
                 Forms\Components\FileUpload::make('sampel_quiz')
                     ->label('Sampel Quiz')
-                    ->directory('sampel')
+                    ->directory('Sample Quiz')
                     ->preserveFilenames()
                     ->required(),
 
                 Forms\Components\FileUpload::make('sampel_latihan')
                     ->label('Sampel Latihan')
-                    ->directory('sampel')
+                    ->directory('Sampel Latihan')
                     ->preserveFilenames()
                     ->required(),
 
                 Forms\Components\FileUpload::make('sampel_UTS')
                     ->label('Sampel UTS')
-                    ->directory('sampel')
+                    ->directory('Sampel UTS')
                     ->preserveFilenames()
                     ->required(),
 
                 Forms\Components\FileUpload::make('sampel_UAS')
                     ->label('Sampel UAS')
-                    ->directory('sampel')
+                    ->directory('Sampel UAS')
                     ->preserveFilenames()
                     ->required(),
             ]);
@@ -83,7 +83,7 @@ class SampelJawabanResource extends Resource
 
                 Tables\Columns\TextColumn::make('sampel_quiz')
                     ->label('Sampel Quiz')
-                    ->directory('Sample Quiz')
+                    
                     ->formatStateUsing(fn($state) => $state ? 'Lihat Sampel Quiz' : 'No File')
                     ->extraAttributes(['style' => 'text-align: left;'])
                     ->url(fn($record) => $record->sampel_quiz ? asset('storage/' . $record->sampel_quiz) : null)
@@ -92,7 +92,7 @@ class SampelJawabanResource extends Resource
 
                 Tables\Columns\TextColumn::make('sampel_latihan')
                     ->label('Sampel Latihan')
-                    ->directory('Sample Latihan')
+                  
                     ->formatStateUsing(fn($state) => $state ? 'Lihat Sampel Latihan' : 'No File')
                     ->extraAttributes(['style' => 'text-align: left;'])
                     ->url(fn($record) => $record->sampel_latihan ? asset('storage/' . $record->sampel_latihan) : null)
@@ -101,7 +101,7 @@ class SampelJawabanResource extends Resource
 
                 Tables\Columns\TextColumn::make('sampel_UTS')
                     ->label('Sampel UTS')
-                    ->directory('Sample UTS')
+                  
                     ->formatStateUsing(fn($state) => $state ? 'Lihat Sampel UTS' : 'No File')
                     ->extraAttributes(['style' => 'text-align: left;'])
                     ->url(fn($record) => $record->sampel_UTS ? asset('storage/' . $record->sampel_UTS) : null)
@@ -110,7 +110,7 @@ class SampelJawabanResource extends Resource
 
                 Tables\Columns\TextColumn::make('sampel_UAS')
                     ->label('Sampel UAS')
-                    ->directory('Sample UAS')
+                  
                     ->formatStateUsing(fn($state) => $state ? 'Lihat Sampel UAS' : 'No File')
                     ->extraAttributes(['style' => 'text-align: left;'])
                     ->url(fn($record) => $record->sampel_UAS ? asset('storage/' . $record->sampel_UAS) : null)

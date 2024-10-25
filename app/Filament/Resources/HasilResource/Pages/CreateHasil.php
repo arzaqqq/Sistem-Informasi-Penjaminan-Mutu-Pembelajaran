@@ -75,6 +75,7 @@ class CreateHasil extends CreateRecord
 
                     TextInput::make('nama_dosen')
                         ->label('Nama Dosen')
+                        
                         ->disabled(),
                 ]),
 
@@ -99,10 +100,11 @@ class CreateHasil extends CreateRecord
                 Repeater::make('mahasiswa_nilai')
                     ->label('Daftar Mahasiswa dan Nilai')
                     ->schema([
-                        Grid::make(8)->schema([
+                        Grid::make(7)->schema([
                             TextInput::make('nama_mahasiswa')
                                 ->label('Mahasiswa')
-                                ->required(),
+                                ->required()
+                                ->columnSpan(2),
 
                             TextInput::make('nim')
                                 ->label('NIM ')
@@ -148,13 +150,13 @@ class CreateHasil extends CreateRecord
                                 ->label('Total Nilai ')
                                 ->reactive()
                                 ->disabled()
-                                ,
+                                ->columnSpan(2),
 
                             TextInput::make('huruf_mutu')
                                 ->label('Huruf Mutu ')
                                 ->reactive()
                                 ->disabled()
-                                ,
+                                ->columnSpan(2),
                         ]),
                     ])
                     ->createItemButtonLabel('Tambah Mahasiswa')
