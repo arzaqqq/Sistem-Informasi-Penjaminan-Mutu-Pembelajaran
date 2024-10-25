@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nim');
             $table->string('email');
-            $table->foreignId('matakuliah_id')->constrained('matakuliahs');
-            $table->foreignId('kelas_id')->constrained('kelas');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('matakuliah_id')->constrained('matakuliahs')->onDelete('cascade');
+            $table->foreignId('kelas_id')->constrained('kelas')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
