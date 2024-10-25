@@ -19,12 +19,12 @@ Survei
 <div class="container p-10 mx-auto bg-cover bg-center" style="background-image: url('img/bg4.jpg')">
     <div class="flex items-center justify-center">
         <div class="w-24 h-1 bg-green-600 me-4 mb-4 mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"></div>
-        <h1 class="text-2xl font-bold text-center">Survei Evaluasi</h1>
+        <h1 class="text-2xl font-bold text-center text-slate-800">Survei Evaluasi</h1>
         <div class="w-24 h-1 bg-green-600 ms-4 mb-4 mt-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200"></div>
     </div>    
 
     <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg"> <!-- Tambahkan max-w-4xl untuk batas lebar -->
-        <form id="surveyForm" action="{{ route('survey.store') }}" method="POST">
+        <form id="surveyForm" action="{{ route('survey.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow-lg">
                 @if (session('success'))
                 <div id="success-alert" class="text-sm p-2 bg-green-100 text-green-700 rounded">
                 {{ session('success') }}
