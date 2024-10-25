@@ -32,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('SEP - SIPIL UNIMAL')
+            ->brandName('SIMPEL - SIPIL UNIMAL')
             ->colors([
                 'primary' => Color::Blue,
             ])
@@ -54,7 +54,7 @@ class AdminPanelProvider extends PanelProvider
                 'Penilaian',
                 'Hasil & Evaluasi',
                 'Survey & Tindak lanjut'
-                
+
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -78,10 +78,10 @@ class AdminPanelProvider extends PanelProvider
             ])
 
             ->renderHook(
-                PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, 
-                fn() => view("custom.login"), 
+                PanelsRenderHook::AUTH_LOGIN_FORM_AFTER,
+                fn() => view("custom.login"),
             )
-            
+
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Edit Profile')
@@ -89,6 +89,5 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-m-user-circle')
 
             ]);
-
     }
 }

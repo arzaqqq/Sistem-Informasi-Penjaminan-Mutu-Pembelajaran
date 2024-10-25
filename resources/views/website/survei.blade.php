@@ -8,7 +8,7 @@
 @extends('layout.template')
 
 @section('title')
-Survei
+SIMPEL - Survei Evaluasi
 @endsection
 
 @section('content')
@@ -16,25 +16,25 @@ Survei
 
 {{-- Awal Survei --}}
 
-<div class="container p-10 mx-auto bg-cover bg-center" style="background-image: url('img/bg4.jpg')">
+<div class="container p-6 sm:p-10 mx-auto bg-cover bg-center" style="background-image: url('img/bg4.jpg')">
     <div class="flex items-center justify-center">
-        <div class="w-24 h-1 bg-green-600 me-4 mb-4 mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"></div>
-        <h1 class="text-2xl font-bold text-center text-slate-800">Survei Evaluasi</h1>
-        <div class="w-24 h-1 bg-green-600 ms-4 mb-4 mt-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200"></div>
+        <div class="w-16 sm:w-24 h-1 bg-green-600 mr-2 sm:mr-4 mb-4 mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"></div>
+        <h1 class="text-xl sm:text-2xl font-bold text-center text-slate-800">Survei Evaluasi</h1>
+        <div class="w-16 sm:w-24 h-1 bg-green-600 ml-2 sm:ml-4 mb-4 mt-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200"></div>
     </div>    
 
-    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg"> <!-- Tambahkan max-w-4xl untuk batas lebar -->
-        <form id="surveyForm" action="{{ route('survey.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow-lg">
+    <div class="max-w-2xl sm:max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-lg shadow-lg"> <!-- Tambahkan max-w-4xl untuk batas lebar -->
+        <form id="surveyForm" action="{{ route('survey.store') }}" method="POST" class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                 @if (session('success'))
-                <div id="success-alert" class="text-sm p-2 bg-green-100 text-green-700 rounded">
+                <div id="success-alert" class="text-xs sm:text-sm p-2 bg-green-100 text-green-700 rounded">
                 {{ session('success') }}
                 </div>
                 @endif
             @csrf
-            <div class="space-y-12 step" style="display: block">
-                <div class="mb-8 border-b border-gray-300 pb-4">
-                    <h2 class="text-lg font-semibold text-gray-900">PETUNJUK PENGISIAN</h2>
-                    <ol class="list-decimal ml-5 text-gray-700">
+            <div class="space-y-6 step" style="display: block">
+                <div class="mb-6 sm:mb-8 border-b border-gray-300 pb-4">
+                    <h2 class="text-base sm:text-lg font-semibold text-gray-900">PETUNJUK PENGISIAN</h2>
+                    <ol class="list-decimal ml-5 text-gray-700 text-sm sm:text-base">
                         <li>Kuesioner ini wajib diisi oleh setiap mahasiswa Jurusan Teknik Sipil Fakultas Teknik Universitas Malikussaleh.</li>
                         <li>Setiap kuesioner berlaku untuk satu dosen (mohon isi ulang/ submit respons baru untuk mengevaluasi dosen lainnya).</li>
                         <li>Mahasiswa wajib mengisi sejumlah matakuliah yang diambil untuk setiap dosen pengampu (Misal: jika mengambil 12 MK dengan masing-masing 2 dosen pengampu, maka harap mengisi form 24 kali).</li>
@@ -43,36 +43,36 @@ Survei
                         <li>Mohon diisi dengan SERIUS dan JUJUR ke dalam form ini.</li>
                     </ol>
                 </div>
-                <div class="border-b border-gray-900/10 pb-12 mt-2">
-                    <h2 class="text-base font-semibold leading-7 text-gray-900">Data Mahasiswa</h2>
-                    <p class="mt-1 text-sm leading-6 text-gray-600">Data anda bersifat rahasia</p>
+                <div class="border-b border-gray-900/10 pb-6 sm:pb-12 mt-2">
+                    <h2 class="text-sm sm:text-base font-semibold leading-7 text-gray-900">Data Mahasiswa</h2>
+                    <p class="mt-1 text-xs sm:text-sm leading-6 text-gray-600">Data anda bersifat rahasia</p>
           
-                    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                        <div class="sm:col-span-4">
-                            <label for="nama" class="block text-sm font-medium leading-6 text-gray-900">Nama Lengkap</label>
+                    <div class="mt-6 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
+                        <div class="col-span-1 sm:col-span-2">
+                            <label for="nama" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Nama Lengkap</label>
                             <div class="mt-2">
-                                <input type="text" name="nama" id="nama" placeholder="Contoh: Muhammad Ali" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                            </div>
-                        </div>
-            
-                        <div class="sm:col-span-4">
-                            <label for="nim" class="block text-sm font-medium leading-6 text-gray-900">NIM</label>
-                            <div class="mt-2">
-                                <input type="text" name="nim" id="nim" placeholder="Contoh: 201901000" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-                            </div>
-                        </div>
-            
-                        <div class="sm:col-span-4">
-                            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email Mahasiswa</label>
-                            <div class="mt-2">
-                                <input id="email" name="email" type="email" placeholder="Contoh: muhammad.20190@mhs.unimal.ac.id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                                <input type="text" name="nama" id="nama" placeholder="Contoh: Muhammad Ali" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
                             </div>
                         </div>
 
-                        <div class="sm:col-span-4">
-                            <label for="matakuliah_id" class="block text-sm font-medium leading-6 text-gray-900">Matakuliah</label>
+                        <div>
+                            <label for="nim" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">NIM</label>
                             <div class="mt-2">
-                                <select id="matakuliah_id" name="matakuliah_id" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" required>
+                                <input type="text" name="nim" id="nim" placeholder="Contoh: 201901000" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Email Mahasiswa</label>
+                            <div class="mt-2">
+                                <input type="email" name="email" id="email" placeholder="Contoh: muhammad.20190@mhs.unimal.ac.id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="matakuliah_id" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Matakuliah</label>
+                            <div class="mt-2">
+                                <select name="matakuliah_id" id="matakuliah_id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
                                     <option value="">-- Pilih Matakuliah --</option>
                                     @foreach(get_matakuliahs() as $matakuliah)
                                     <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_mk }}</option>
@@ -81,10 +81,10 @@ Survei
                             </div>
                         </div>
 
-                        <div class="sm:col-span-4">
-                            <label for="kelas_id" class="block text-sm font-medium leading-6 text-gray-900">Kelas</label>
+                        <div>
+                            <label for="kelas_id" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Kelas</label>
                             <div class="mt-2">
-                                <select id="kelas_id" name="kelas_id" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" required>
+                                <select name="kelas_id" id="kelas_id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
                                     <option value="">-- Pilih Kelas --</option>
                                     @if(old('matakuliah_id'))
                                         @foreach(get_kelas_by_matakuliah(old('matakuliah_id')) as $kelas)
@@ -94,11 +94,11 @@ Survei
                                 </select>
                             </div>
                         </div>
-            
-                        <div class="sm:col-span-4">
-                            <label for="user_id" class="block text-sm font-medium leading-6 text-gray-900">Nama Dosen</label>
+
+                        <div>
+                            <label for="user_id" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Nama Dosen</label>
                             <div class="mt-2">
-                                <select id="user_id" name="user_id" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" required>
+                                <select name="user_id" id="user_id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
                                     <option value="">-- Pilih Dosen --</option>
                                     @foreach(get_dosens() as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -136,9 +136,9 @@ Survei
                 </div>
                 @endforeach
                 <div class="mt-6 flex items-center justify-center gap-x-6">
-                    <button type="button" class="prevBtn rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Sebelumya</button>
-                    <button type="button" class="nextBtn rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Selanjutnya</button>
-                    <button type="submit" class="submitBtn rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
+                    <button type="button" class="prevBtn rounded-md bg-gray-600 px-3 py-2 text-sm sm:text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Sebelumya</button>
+                    <button type="button" class="nextBtn rounded-md bg-green-600 px-3 py-2 text-sm sm:text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Selanjutnya</button>
+                    <button type="submit" class="submitBtn rounded-md bg-indigo-600 px-3 py-2 text-sm sm:text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
                 </div>
             </div>
         </form>
