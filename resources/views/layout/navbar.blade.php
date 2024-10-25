@@ -3,7 +3,7 @@
 @endphp
 
 <nav class="bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between ms-8 mx-auto p-4">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between  mx-auto p-4">
         <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{Storage::url($logo->foto)}}" alt="logo" class="w-[180px]">
         </a>
@@ -14,7 +14,7 @@
             </svg>
         </button>
         <div class="hidden w-full lg:block lg:w-auto" id="navbar-dropdown">
-            <ul class="flex flex-col items-center font-medium p-4 lg:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white ">
+            <ul class="flex flex-col items-center font-medium p-4 lg:p-0 mt-4  rounded-lg lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 lg:border-0 lg:bg-white ">
                 <li>
                     <a href="{{url('/') }}" class="flex items-center py-3 px-4 text-[12px] md:text-[14px] text-gray-900 font-semibold rounded md:bg-transparent md:text-gray-700  md:hover:text-green-500 md:p-0 {{ Request::is('/') ? 'text-green-500' : 'text-gray-900 md:text-gray-700 md:hover:text-green-500' }}" aria-current="page">Beranda</a>
                 </li>

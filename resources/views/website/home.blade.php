@@ -36,21 +36,21 @@ SIMPEL - Profil Lulusan
   {{-- Akhir Carousel --}}
 
   {{-- Awal Narasi --}}
-  <div class="container mx-auto mt-8">
+  <div class="container mx-auto mt-8 overflow-hidden">
     <div class="flex flex-col-reverse md:flex-row items-center md:items-start mb-4">
       <div class="w-24 h-1 bg-green-600 md:ms-12 mb-4 mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"></div>
-      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold ms-4 md:ms-0 text-slate-800 text-center md:text-left" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">{{ $subjudul1 }}</h1>
+      <h1 id="narasi1" class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold ms-4 md:ms-0 text-slate-800 text-center md:text-left" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">{{ $subjudul1 }}</h1>
     </div>
     <div class="sm:text-sm md:text-base lg:text-base mx-12 mb-2 leading-relaxed text-slate-800 text-justify" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">{!! $narasi1 !!}</div> 
   </div>
   {{-- Akhir Narasi --}}
 
   {{-- Awal Profil Lulusan --}}
-  <div class="container mx-auto mt-8 px-4 sm:px-6 lg:px-8">
+  <div class="container mx-auto mt-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
     <!-- Header Section -->
     <div class="flex flex-col-reverse md:flex-row-reverse items-center md:items-start">
-      <div class="w-16 h-1 md:w-24 bg-green-600 md:me-12 mb-4 mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"></div>
-      <h1 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold me-0 md:me-4 text-slate-800 text-center md:text-left" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">{{ $subjudul2 }}</h1>
+      <div class="w-24 h-1 md:w-24 bg-green-600 md:me-12 mb-4 mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"></div>
+      <h1 id="narasi2" class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold me-0 md:me-4 text-slate-800 text-center md:text-left" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">{{ $subjudul2 }}</h1>
     </div>
   
     <!-- Image and Text Section -->
@@ -81,8 +81,8 @@ SIMPEL - Profil Lulusan
           @php $no = 1; @endphp
           @foreach (get_profile()->take(5) as $profile)
           <tr class="text-slate-800 bg-green-300 hover:bg-green-600 hover:text-white">
-            <th class="border border-slate-700 px-2 py-1">{{ $no++ }}</th>
-            <td class="border border-slate-700 px-2 py-1 font-medium">{!! $profile->nama_profil !!}</td>
+            <th class="content-start py-4 border border-slate-700 px-2">{{ $no++ }}</th>
+            <td class="content-start  py-4 border border-slate-700 px-2 font-medium">{!! $profile->nama_profil !!}</td>
             <td class="border border-slate-700 px-2 py-1 font-medium leading-relaxed">{!! $profile->deskripsi_profil !!}</td>
           </tr>
           @endforeach

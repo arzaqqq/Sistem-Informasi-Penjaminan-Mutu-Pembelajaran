@@ -13,11 +13,31 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="icon" href="{{ asset('img/logo3.png') }}" type="image/png">
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
       AOS.init({
         once: true,
       });
+
+      function typeEffect(elementId, duration, delay) {
+            const element = document.getElementById(elementId);
+            const fullText = element.innerHTML; // Ambil teks asli
+            element.innerHTML = ''; // Hapus konten asli dari elemen
+
+            // Animasi mengetik menggunakan GSAP TextPlugin
+            gsap.to(element, {
+                duration: duration, // Durasi efek mengetik
+                text: fullText, // Teks yang akan ditampilkan
+                ease: "power1.in", // Jenis easing untuk efek
+                delay: delay,
+            });
+        }
+
+        // Panggil fungsi untuk masing-masing elemen
+        typeEffect('narasi1', 3, 0); // Durasi 4 detik untuk narasi1
+        typeEffect('narasi2', 3, 2.5); // Durasi 3 detik untuk narasi2
     });
     </script>
     
