@@ -23,7 +23,7 @@ SIMPEL - Survei Evaluasi
         <div class="w-16 sm:w-24 h-1 bg-green-600 ml-2 sm:ml-4 mb-4 mt-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200"></div>
     </div>    
 
-    <div class="max-w-2xl sm:max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-lg shadow-lg"> <!-- Tambahkan max-w-4xl untuk batas lebar -->
+    <div class="max-w-2xl sm:max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-lg shadow-lg">
         <form id="surveyForm" action="{{ route('survey.store') }}" method="POST" class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                 @if (session('success'))
                 <div id="success-alert" class="text-xs sm:text-sm p-2 bg-green-100 text-green-700 rounded">
@@ -276,12 +276,13 @@ SIMPEL - Survei Evaluasi
         const successAlert = document.getElementById('success-alert');
         
         if (successAlert) {
-            // Atur untuk menghilang setelah 3 detik (3000 ms)
+            
             setTimeout(function() {
                 successAlert.style.display = 'none';
-            }, 2000); // Ubah angka 3000 sesuai kebutuhan
+            }, 2000); 
         }
     });
+
 
 </script>
 

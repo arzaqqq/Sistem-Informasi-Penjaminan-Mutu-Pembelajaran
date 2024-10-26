@@ -68,19 +68,19 @@ SIMPEL - Profil Lulusan
   
     <!-- Table Section -->
     <div class="overflow-x-auto mt-8 max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto">
-      <table class="w-full table-auto border-collapse border-spacing-2 border border-slate-700" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">
+      <table class="w-full table-auto border-collapse border-spacing-2 border border-slate-900" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200">
         <!-- Head -->
         <thead class="bg-gray-200">
           <tr class="text-black text-sm md:text-base lg:text-lg">
-            <th class="border border-slate-700 text-base sm:text-sm md:text-base lg:text-lg">No</th>
-            <th class="border border-slate-700 text-base sm:text-sm md:text-base lg:text-lg">{{$nama}}</th>
+            <th class="border border-slate-700 text-base sm:text-sm md:text-base lg:text-lg px-2">No</th>
+            <th class="border border-slate-700 text-base sm:text-sm md:text-base lg:text-lg px-auto">{{$nama}}</th>
             <th class="border border-slate-700 text-base sm:text-sm md:text-base lg:text-lg">{{$deskripsi}}</th>
           </tr>
         </thead>
         <tbody>
           @php $no = 1; @endphp
           @foreach (get_profile()->take(5) as $profile)
-          <tr class="text-slate-800 bg-green-300 hover:bg-green-600 hover:text-white">
+          <tr class="text-slate-800 bg-white hover:bg-green-600 hover:text-white">
             <th class="content-start py-4 border border-slate-700 px-2">{{ $no++ }}</th>
             <td class="content-start  py-4 border border-slate-700 px-2 font-medium">{!! $profile->nama_profil !!}</td>
             <td class="border border-slate-700 px-2 py-1 font-medium leading-relaxed">{!! $profile->deskripsi_profil !!}</td>
@@ -88,6 +88,8 @@ SIMPEL - Profil Lulusan
           @endforeach
         </tbody>
       </table>
+
+
     </div>
   </div>
   

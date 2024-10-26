@@ -22,19 +22,24 @@ class SurveyController extends Controller
             'ratings.*.rating' => 'required|integer|between:1,5',
         ]);
 
-        // Simpan survei
-        $survey = Survey::create($request->except('ratings'));
+        try {
+            // Simpan survei
+            $survey = Survey::create($request->except('ratings'));
 
-        // Simpan rating
-        foreach ($request->ratings as $questionId => $ratingData) {
-            SurveyRating::create([
-                'survey_id' => $survey->id,
-                'question_id' => $questionId,
-                'rating' => $ratingData['rating'],
-            ]);
+            // Simpan rating
+            foreach ($request->ratings as $questionId => $ratingData) {
+                SurveyRating::create([
+                    'survey_id' => $survey->id,
+                    'question_id' => $questionId,
+                    'rating' => $ratingData['rating'],
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Survei berhasil dikirim!');
+        } catch (\Exception $e) {
+            // Kembalikan pesan error jika terjadi kegagalan
+            return redirect()->back()->with('error', 'Gagal mengirim survei. Silakan coba lagi.');
         }
-
-        return redirect()->back()->with('success', 'Survei berhasil dikirim!');
     }
 
     public function getChartData()
