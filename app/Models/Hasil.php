@@ -33,6 +33,8 @@ class Hasil extends Model
         return $this->belongsTo(Evaluasi::class);
     }
 
+   
+
     public function avarage()
     {
         return $this->belongsTo(Average::class);

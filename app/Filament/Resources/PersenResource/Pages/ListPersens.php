@@ -65,7 +65,7 @@ class ListPersens extends ListRecords
                         ->label('Nama Dosen')
                         ->options(function () {
                            
-                            return \App\Models\User::where('role', 'dosen')->pluck('name', 'id');
+                            return \App\Models\User::where('role', 'dosen')->pluck('name', 'name');
                         })
                         ->required(),
 

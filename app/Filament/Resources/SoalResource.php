@@ -66,7 +66,8 @@ class SoalResource extends Resource
             
                 // Form components for file uploads
                 Forms\Components\FileUpload::make('quiz')
-                    ->label('Quiz Files')
+                    ->label(' File Quiz ')
+                    ->directory('File Soal quiz')
                     ->preserveFilenames()
                     ->multiple()
                     ->reorderable()
@@ -75,18 +76,21 @@ class SoalResource extends Resource
                     ->required(),
 
                 Forms\Components\FileUpload::make('latihan')
-                    ->label('Latihan Files')
+                    ->label('File Latihan ')
+                    ->directory('File Soal Latihan')
                     ->preserveFilenames()
                     ->multiple()
                     ->required(),
 
                 Forms\Components\FileUpload::make('UTS')
-                    ->label('UTS File')
+                    ->label('File UTS ')
+                    ->directory('Soal UTS')
                     ->preserveFilenames()
                     ->required(), // No multiple files for UTS
 
                 Forms\Components\FileUpload::make('UAS')
-                    ->label('UAS File')
+                    ->label('File UAS ')
+                    ->directory('Soal UAS')
                     ->preserveFilenames()
                     ->required(), // No multiple files for UAS
             ]);
@@ -107,7 +111,7 @@ class SoalResource extends Resource
                     ->searchable(),
     Tables\Columns\TextColumn::make('quiz')
     ->label('File Quiz')
-    ->directory('File Soal quiz')
+   
     ->formatStateUsing(function ($record) {
         // Check if quiz is an array
         if (is_array($record->quiz)) {
@@ -132,7 +136,7 @@ class SoalResource extends Resource
                 
     Tables\Columns\TextColumn::make('latihan')
     ->label('File Latihan')
-    ->directory('File Soal Latihan')
+ 
     ->formatStateUsing(function ($record) {
         // Check if the `latihan` field is an array of file paths
         if (is_array($record->latihan)) {
@@ -159,7 +163,7 @@ class SoalResource extends Resource
 
     Tables\Columns\TextColumn::make('UTS')
     ->label('File UTS')
-    ->directory('Soal UTS')
+   
     ->formatStateUsing(fn($state) => $state ? 'UTS' : 'No File')
     ->html()
     ->url(fn ($record) => $record->UTS ? asset('storage/' . $record->UTS) : null) // Mengatur URL untuk unduhan
@@ -168,7 +172,7 @@ class SoalResource extends Resource
 
 Tables\Columns\TextColumn::make('UAS')
     ->label('File UAS')
-    ->directory('Soal UAS')
+
     ->formatStateUsing(fn($state) => $state ? 'UAS' : 'No File')
     ->html()
     ->url(fn ($record) => $record->UAS ? asset('storage/' . $record->UAS) : null) // Mengatur URL untuk unduhan
