@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('SIMPEL - SIPIL UNIMAL')
             ->colors([
-                'primary' => Color::Blue,
+                'primary' => Color::Green, // Hijau emerald
             ])
             ->databaseNotifications()
             ->discoverResources(app_path('Filament/Resources'), 'App\\Filament\\Resources')
