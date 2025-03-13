@@ -133,7 +133,7 @@ class PersenResource extends Resource
                 ->sortable()
                 ->searchable(),
                 Tables\Columns\TextColumn::make('nama_dosen')->label('Nama Dosen'),
-                Tables\Columns\TextColumn::make('persen_absen')->label('Persen Absen (%)'),
+                Tables\Columns\TextColumn::make('persen_quiz')->label('Persen Quiz (%)'),
                 Tables\Columns\TextColumn::make('persen_latihan')->label('Persen Latihan (%)'),
                 Tables\Columns\TextColumn::make('persen_UTS')->label('Persen UTS (%)'),
                 Tables\Columns\TextColumn::make('persen_UAS')->label('Persen UAS (%)'),

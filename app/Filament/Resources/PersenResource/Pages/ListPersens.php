@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\PersenResource\Pages;
 
+use Filament\Forms;
+use App\Models\Kelas;
 use Filament\Actions;
 use App\Models\Persen;
-use App\Models\Kelas;
 use App\Models\Matakuliah;
-use Filament\Forms;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
@@ -33,7 +33,7 @@ class ListPersens extends ListRecords
                     return "{$record->nama_mk} - {$record->tahun_ajaran}";
                 })
                 ->reactive(),
-            
+
             Forms\Components\Select::make('kelas_id')
                 ->label('Kelas')
                 ->searchable()
@@ -53,7 +53,7 @@ class ListPersens extends ListRecords
                             $exists = \App\Models\Persen::where('matakuliah_id', $get('matakuliah_id'))
                                 ->where('kelas_id', $value)
                                 ->exists();
-            
+
                             if ($exists) {
                                 $fail('Kombinasi Mata Kuliah dan Kelas sudah ada.');
                             }
@@ -64,14 +64,14 @@ class ListPersens extends ListRecords
                     Forms\Components\Select::make('nama_dosen')
                         ->label('Nama Dosen')
                         ->options(function () {
-                           
+
                             return \App\Models\User::where('role', 'dosen')->pluck('name', 'name');
                         })
                         ->required(),
 
                     // Inputan persentase
-                    Forms\Components\TextInput::make('persen_absen')
-                        ->label('Persen Absen (%)')
+                    Forms\Components\TextInput::make('persen_quiz')
+                        ->label('Persen Quiz (%)')
                         ->numeric()
                         ->minValue(0)
                         ->maxValue(100)
