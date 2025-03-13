@@ -32,15 +32,15 @@ class HasilResource extends Resource
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form->schema([
-           
+
         ]);
     }
-      
-    
 
-    
 
-    
+
+
+
+
 
     public static function table(Table $table): Table
 {
@@ -50,28 +50,28 @@ class HasilResource extends Resource
                 ->label('Nama Mahasiswa')
                 ->sortable()
                 ->searchable(),
-            
+
             Tables\Columns\TextColumn::make('nim')
                 ->label('NIM')
                 ->sortable()
                 ->searchable(),
-                
+
             Tables\Columns\TextColumn::make('matakuliah.nama_mk')
                 ->label('Mata Kuliah')
                 ->sortable()
                 ->searchable(),
-                
+
             Tables\Columns\TextColumn::make('kelas.nama_kelas')
                 ->label('Kelas')
                 ->sortable()
                 ->searchable(),
-                
+
             Tables\Columns\TextColumn::make('matakuliah.tahun_ajaran')
                 ->label('Tahun Ajaran')
                 ->sortable()
-                ->searchable(),    
+                ->searchable(),
 
-            Tables\Columns\TextColumn::make('absen')
+            Tables\Columns\TextColumn::make('quiz')
                 ->label('Nilai Absen')
                 ->sortable()
                 ->searchable(),
@@ -90,7 +90,7 @@ class HasilResource extends Resource
                 ->label('Nilai UAS')
                 ->sortable()
                 ->searchable(),
-                
+
             Tables\Columns\TextColumn::make('total_nilai')
                 ->label('Total Nilai')
                 ->sortable()
@@ -100,11 +100,11 @@ class HasilResource extends Resource
                 ->label('Huruf Mutu')
                 ->sortable()
                 ->searchable(),
-                
 
-                
+
+
         ])
-        
+
         ->filters([
             SelectFilter::make('matakuliah_id')
     ->label('Mata Kuliah')
@@ -123,13 +123,13 @@ class HasilResource extends Resource
                 ->searchable()
                 ->placeholder('Pilih Kelas'),
 
-            
-            
+
+
         ])
         ->actions([
             Tables\Actions\EditAction::make(),
             Tables\Actions\DeleteAction::make(),
-            
+
         ])
         ->bulkActions([
             Tables\Actions\DeleteBulkAction::make(),
@@ -138,7 +138,7 @@ class HasilResource extends Resource
 
 
      // Menambahkan tombol dan aksi untuk mengganti template
-     
+
 
     public static function getRelations(): array
     {

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('persen_id')->constrained('persens')->onDelete('cascade');
             $table->string('nama_mahasiswa')->nullable();
             $table->float('nim')->nullable();
-            $table->float('absen')->nullable();
+            $table->float('quiz')->nullable();
             $table->float('tugas')->nullable();
             $table->float('uts')->nullable();
             $table->float('uas')->nullable();
