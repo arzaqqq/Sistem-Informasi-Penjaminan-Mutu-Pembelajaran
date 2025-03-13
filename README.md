@@ -149,12 +149,3 @@ Pastikan pengaturan di file `.env` sudah benar, terutama untuk koneksi database.
 
 ---
 
-## 7. Kesimpulan
-
-Dokumentasi ini memberikan langkah-langkah yang jelas untuk mengatur dan menjalankan aplikasi Laravel setelah meng-clone dari GitHub. Ikuti petunjuk di atas untuk memastikan aplikasi dapat berjalan dengan lancar di lingkungan lokal Anda.
-
-Jika Anda menemukan masalah yang tidak terdaftar dalam dokumentasi ini, pastikan untuk memeriksa log kesalahan atau membuka isu di repository GitHub proyek ini.
-
----
-
-Dokumentasi ini dapat diperluas dengan bagian tambahan seperti konfigurasi lebih lanjut, tutorial penggunaan aplikasi, atau pengaturan produksi jika diperlukan.
