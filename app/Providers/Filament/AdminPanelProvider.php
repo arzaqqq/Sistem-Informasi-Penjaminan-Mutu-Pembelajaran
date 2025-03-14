@@ -34,7 +34,8 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('SIMPEL - SIPIL UNIMAL')
             ->colors([
-                'primary' => Color::Green, // Hijau emerald
+                'primary' => Color::Green,
+                'secondary' => Color::Blue,
             ])
             ->databaseNotifications()
             ->discoverResources(app_path('Filament/Resources'), 'App\\Filament\\Resources')
@@ -87,7 +88,6 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Edit Profile')
                     ->url(fn(): string => EditProfilePage::getUrl())
                     ->icon('heroicon-m-user-circle')
-
             ]);
     }
 }

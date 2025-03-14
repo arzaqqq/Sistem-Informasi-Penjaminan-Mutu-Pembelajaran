@@ -56,7 +56,7 @@ class KelasResource extends Resource
                         return [
                             function (string $attribute, $value, $fail) use ($get, $record) {
                                 // Cek apakah kombinasi duplikat, kecuali data yang sedang diubah
-                                $exists = \App\Models\Kelas::where('matakuliah_id', $get('matakuliah_id'))
+                                $exists = Kelas::where('matakuliah_id', $get('matakuliah_id'))
                                     ->where('nama_kelas', $value)
                                     ->when($record, fn($query) => $query->where('id', '!=', $record->id)) // Abaikan ID yang sedang diubah
                                     ->exists();
@@ -114,7 +114,7 @@ class KelasResource extends Resource
                         'title' => 'Download File Template',
                         'class' => 'hover-underline-primary',
                     ]),
-                
+
                 Tables\Columns\TextColumn::make('file_kelas')
                     ->label('File Kontrak')
                     ->formatStateUsing(fn($state) => $state ? 'File Kontrak' : 'Belum ada file')
@@ -125,8 +125,8 @@ class KelasResource extends Resource
                         'title' => 'Download File Kontrak',
                         'class' => 'hover-underline-primary',
                     ]),
-                
-                
+
+
             ])
             ->filters([
 
@@ -151,7 +151,7 @@ class KelasResource extends Resource
                 Tables\Filters\SelectFilter::make('nama_kelas')
                     ->label('Nama Kelas')
                     ->options(
-                        \App\Models\Kelas::all()->pluck('nama_kelas', 'nama_kelas')
+                        Kelas::all()->pluck('nama_kelas', 'nama_kelas')
                     )
                     ->searchable()
                     ->placeholder('Pilih Nama Kelas'),
@@ -210,7 +210,7 @@ class KelasResource extends Resource
                                 unlink($templatePath); // Menghapus file template
                             }
                         }
-    
+
                         // Hapus file_kelas
                         if ($record->file_kelas) {
                             $kelasPath = public_path('storage/' . $record->file_kelas);
@@ -218,7 +218,7 @@ class KelasResource extends Resource
                                 unlink($kelasPath); // Menghapus file kelas
                             }
                         }
-                    } 
+                    }
                 }),
             ]);
     }
