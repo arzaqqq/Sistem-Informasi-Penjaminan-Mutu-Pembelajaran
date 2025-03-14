@@ -19,7 +19,7 @@
                         <tr>
                             <th class="border border-gray-600 px-6 py-3">Pertemuan</th>
                             <th class="border border-gray-600 px-6 py-3">Judul Materi</th>
-                            <th class="border border-gray-600 px-6 py-3 text-center">File</th>
+                            <th class="border border-gray-600 px-6 py-3 text-center">File Materi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-700">
@@ -45,12 +45,6 @@
             </div>
         </div>
 
-        <!-- Tombol Kembali -->
-        <div class="mt-6 flex justify-start">
-            <a href="{{ url()->previous() }}"
-               class="px-5 py-3 bg-blue-600 text-white rounded-lg shadow-lg text-lg font-medium hover:bg-blue-700 transition flex items-center space-x-2">
-                ⬅ Kembali
-            </a>
-        </div>
+
     </div>
 </x-filament::page>
