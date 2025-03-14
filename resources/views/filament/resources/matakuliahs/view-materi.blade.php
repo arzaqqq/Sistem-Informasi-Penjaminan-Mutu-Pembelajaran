@@ -21,6 +21,7 @@
                             <th class="border border-gray-600 px-6 py-3">Judul Materi</th>
                             <th class="border border-gray-600 px-6 py-3 text-center">File Materi</th>
                         </tr>
+                        
                     </thead>
                     <tbody class="divide-y divide-gray-700">
                         @foreach($record->materis as $materi)
