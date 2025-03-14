@@ -42,7 +42,7 @@ class ListPersens extends ListRecords
                     if (!$matakuliahId) {
                         return [];
                     }
-                    return \App\Models\Kelas::where('matakuliah_id', $matakuliahId)
+                    return Kelas::where('matakuliah_id', $matakuliahId)
                         ->pluck('nama_kelas', 'id');
                 })
                 ->required()
@@ -50,7 +50,7 @@ class ListPersens extends ListRecords
                     return [
                         function (string $attribute, $value, $fail) use ($get) {
                             // Cek apakah kombinasi duplikat
-                            $exists = \App\Models\Persen::where('matakuliah_id', $get('matakuliah_id'))
+                            $exists = Persen::where('matakuliah_id', $get('matakuliah_id'))
                                 ->where('kelas_id', $value)
                                 ->exists();
 

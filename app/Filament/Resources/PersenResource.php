@@ -3,15 +3,16 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
+use App\Models\Soal;
 use Filament\Tables;
 use App\Models\Kelas;
 use App\Models\Persen;
 use Filament\Forms\Form;
-use App\Models\Matakuliah; // Correct namespace
-use Filament\Tables\Table; // Pastikan import untuk Table benar
-use Filament\Resources\Resource;
+use App\Models\Matakuliah;
+use Filament\Tables\Table;
+use Filament\Resources\Resource; // Correct namespace
 use Filament\Forms\Components\Button;
-use App\Filament\Resources\PersenResource\Pages;
+use App\Filament\Resources\PersenResource\Pages; // Pastikan import untuk Table benar
 
 class PersenResource extends Resource
 {
@@ -44,7 +45,7 @@ class PersenResource extends Resource
                     if (!$matakuliahId) {
                         return [];
                     }
-                    return \App\Models\Kelas::where('matakuliah_id', $matakuliahId)
+                    return Kelas::where('matakuliah_id', $matakuliahId)
                         ->pluck('nama_kelas', 'id');
                 })
                 ->required()
@@ -52,7 +53,7 @@ class PersenResource extends Resource
                     return [
                         function (string $attribute, $value, $fail) use ($get) {
                             // Cek apakah kombinasi duplikat
-                            $exists = \App\Models\Soal::where('matakuliah_id', $get('matakuliah_id'))
+                            $exists = Soal::where('matakuliah_id', $get('matakuliah_id'))
                                 ->where('kelas_id', $value)
                                 ->exists();
 
