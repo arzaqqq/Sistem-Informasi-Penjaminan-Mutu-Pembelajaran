@@ -49,11 +49,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 'Data Akses',
-                'Setting Website',
                 'Perkuliahan',
                 'Penilaian',
                 'Hasil & Evaluasi',
-                'Survey & Tindak lanjut'
+                'Survey & Tindak lanjut',
+                'Setting Website',
 
             ])
             ->middleware([
