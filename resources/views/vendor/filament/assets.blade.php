@@ -11,7 +11,7 @@
 
     @foreach ($assets as $asset)
         @if (! $asset->isLoadedOnRequest())
-            {{ $asset->getHtml() }}W
+            {{ $asset->getHtml() }}
         @endif
     @endforeach
 
