@@ -122,7 +122,7 @@ class ListPersens extends ListRecords
                 ])
                 ->action(function (array $data) {
                     // Hitung total persentase
-                    $totalPersen = intval($data['persen_absen']) + intval($data['persen_latihan']) + intval($data['persen_UTS']) + intval($data['persen_UAS']);
+                    $totalPersen = intval($data['persen_quiz']) + intval($data['persen_latihan']) + intval($data['persen_UTS']) + intval($data['persen_UAS']);
 
                     // Validasi total persentase harus 100%
                     if ($totalPersen !== 100) {
@@ -151,7 +151,7 @@ class ListPersens extends ListRecords
                         'matakuliah_id' => $data['matakuliah_id'],
                         'kelas_id' => $data['kelas_id'],
                         'nama_dosen' => $data['nama_dosen'],
-                        'persen_absen' => $data['persen_absen'],
+                        'persen_quiz' => $data['persen_quiz'],
                         'persen_latihan' => $data['persen_latihan'],
                         'persen_UTS' => $data['persen_UTS'],
                         'persen_UAS' => $data['persen_UAS'],
@@ -170,14 +170,14 @@ class ListPersens extends ListRecords
 
     protected function calculateTotalPersen($set, $get)
     {
-        $persenAbsen = $get('persen_absen');
+        $persenquiz = $get('persen_quiz');
         $persenLatihan = $get('persen_latihan');
         $persenUTS = $get('persen_UTS');
         $persenUAS = $get('persen_UAS');
 
         // Periksa apakah semua input sudah terisi sebelum menghitung total
-        if ($persenAbsen !== null && $persenLatihan !== null && $persenUTS !== null && $persenUAS !== null) {
-            $totalPersen = intval($persenAbsen) + intval($persenLatihan) + intval($persenUTS) + intval($persenUAS);
+        if ($persenquiz !== null && $persenLatihan !== null && $persenUTS !== null && $persenUAS !== null) {
+            $totalPersen = intval($persenquiz) + intval($persenLatihan) + intval($persenUTS) + intval($persenUAS);
             $set('total_persen', $totalPersen);
         }
     }

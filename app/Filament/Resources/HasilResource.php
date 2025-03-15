@@ -36,12 +36,6 @@ class HasilResource extends Resource
         ]);
     }
 
-
-
-
-
-
-
     public static function table(Table $table): Table
 {
     return $table
@@ -72,7 +66,7 @@ class HasilResource extends Resource
                 ->searchable(),
 
             Tables\Columns\TextColumn::make('quiz')
-                ->label('Nilai Absen')
+                ->label('Nilai Quiz')
                 ->sortable()
                 ->searchable(),
 
