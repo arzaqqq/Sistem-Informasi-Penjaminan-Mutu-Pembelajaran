@@ -56,7 +56,7 @@ class SurveyController extends Controller
 
         // Kelompokkan survei berdasarkan mata kuliah dan dosen
         $groupedSurveys = $surveys->groupBy(function ($survey) {
-            return $survey->matakuliah->nama_mk . ' - ' . $survey->nama_dosen; // Gabungkan mata kuliah dan dosen sebagai label
+            return $survey->matakuliah->nama_mk . ' - ' . $survey->user->name; // Gabungkan mata kuliah dan dosen sebagai label
         });
 
         // Loop untuk setiap kelompok mata kuliah-dosen
