@@ -8,6 +8,7 @@ use Filament\Tables;
 use App\Models\Dokumen;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\JenisDokumen;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
@@ -29,18 +30,23 @@ class DokumenResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('jenis_dokumen')
-                    ->options([
-                        'Kurikulum' => 'Kurikulum',
-                        'SK' => 'SK',
-                        'SPMI' => 'SPMI',
-                        'AMI' => 'AMI',
-                        'Panduan Website' => 'Panduan Website',
-                    ])
-                    ->label('Jenis Dokumen')
-                    ->required()
-                    ->reactive()
-                    ->columnSpanFull(),
+                Select::make('jenis_dokumen_id')
+                ->relationship('jenisDokumen', 'jenis_dokumen')  // Gunakan 'jenis_dokumen'
+                ->createOptionForm([
+                    TextInput::make('jenis_dokumen')
+                        ->required()
+                        ->label('Nama Jenis Dokumen'),
+                ])
+                ->createOptionUsing(function (array $data): string {
+                    $jenisDokumen = JenisDokumen::create([
+                        'jenis_dokumen' => $data['jenis_dokumen']  // Sesuaikan dengan kolom di migrasi
+                    ]);
+
+                    return $jenisDokumen->id;
+                })
+                ->required()
+                ->label('Jenis Dokumen')
+                ->columnSpanFull(),
                 FileUpload::make('file_dokumen')
                     ->required()
                     ->label('Dokumen')
@@ -59,7 +65,7 @@ class DokumenResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('jenis_dokumen')
+                TextColumn::make('jenis_dokumen_id.jenis_dokumen')
                     ->label('Jenis Dokumen')
                     ->sortable()
                     ->searchable(),

@@ -3,7 +3,7 @@
         display: block; /* Agar elemen a menjadi blok dan memenuhi lebar penuh */
         width: 100%;
         height: 35px; /* Atur tinggi tombol secara absolut */
-        background-color: rgb(50, 198, 13); /* Warna latar belakang merah */
+        background-color: rgb(23, 98, 196); /* Warna latar belakang merah */
         color: white; /* Warna teks putih */
         text-align: center; /* Teks di tengah */
         padding: 0; /* Menghapus padding untuk memusatkan teks */
@@ -16,7 +16,7 @@
     }
 
     .full-width-button:hover {
-        background-color: rgb(14, 133, 14); /* Warna latar belakang saat hover */
+        background-color: rgb(23, 98, 196, 0.8); /* Warna latar belakang saat hover */
     }
 </style>
 

@@ -28,14 +28,14 @@ class EditHasil extends EditRecord
                         ->label('Mata Kuliah')
                         ->options(Matakuliah::all()->pluck('nama_mk', 'id'))
                         ->default($this->record->matakuliah_id)
-                        
+
                         ->required()
                         ->reactive()
                         ->afterStateUpdated(function ($set) {
                             // Reset state ketika mata kuliah diubah
                             $set('kelas_id', null);
                             $set('nama_dosen', null);
-                            $set('persen_absen', null);
+                            $set('persen_quiz', null);
                             $set('persen_latihan', null);
                             $set('persen_UTS', null);
                             $set('persen_UAS', null);
@@ -59,14 +59,14 @@ class EditHasil extends EditRecord
 
                             if ($persen) {
                                 // Set nilai persen dan nama dosen
-                                $set('persen_absen', $persen->persen_absen);
+                                $set('persen_quiz', $persen->persen_quiz);
                                 $set('persen_latihan', $persen->persen_latihan);
                                 $set('persen_UTS', $persen->persen_UTS);
                                 $set('persen_UAS', $persen->persen_UAS);
                                 $set('nama_dosen', $persen->nama_dosen);
                             } else {
                                 // Reset jika tidak ada persen
-                                $set('persen_absen', null);
+                                $set('persen_quiz', null);
                                 $set('persen_latihan', null);
                                 $set('persen_UTS', null);
                                 $set('persen_UAS', null);
@@ -90,9 +90,9 @@ class EditHasil extends EditRecord
                 ]),
 
                 Grid::make(4)->schema([
-                    // Field Persen Absen - Disabled dengan default berdasarkan Persen
-                    TextInput::make('persen_absen')
-                        ->label('Persen Absen')
+                    // Field Persen quiz - Disabled dengan default berdasarkan Persen
+                    TextInput::make('persen_quiz')
+                        ->label('Persen quiz')
                         ->disabled()
                         ->default(function (callable $get) {
                             $matakuliah_id = $get('matakuliah_id');
@@ -100,7 +100,7 @@ class EditHasil extends EditRecord
                             $persen = Persen::where('matakuliah_id', $matakuliah_id)
                                             ->where('kelas_id', $kelas_id)
                                             ->first();
-                            return $persen ? $persen->persen_absen : null;
+                            return $persen ? $persen->persen_quiz : null;
                         }),
 
                     // Field Persen Latihan - Disabled dengan default berdasarkan Persen
@@ -158,9 +158,9 @@ class EditHasil extends EditRecord
                         ->default($this->record->nim)
                         ->required(),
 
-                    TextInput::make('absen')
-                        ->label('Absen')
-                        ->default($this->record->absen)
+                    TextInput::make('quiz')
+                        ->label('quiz')
+                        ->default($this->record->quiz)
                         ->required()
                         ->reactive()
                         ->afterStateUpdated(function ($state, $get, $set) {
@@ -229,14 +229,14 @@ class EditHasil extends EditRecord
 
         if ($persen) {
             $data['nama_dosen'] = $persen->nama_dosen;
-            $data['persen_absen'] = $persen->persen_absen;
+            $data['persen_quiz'] = $persen->persen_quiz;
             $data['persen_latihan'] = $persen->persen_latihan;
             $data['persen_UTS'] = $persen->persen_UTS;
             $data['persen_UAS'] = $persen->persen_UAS;
         } else {
             // Reset jika tidak ada persen
             $data['nama_dosen'] = null;
-            $data['persen_absen'] = null;
+            $data['persen_quiz'] = null;
             $data['persen_latihan'] = null;
             $data['persen_UTS'] = null;
             $data['persen_UAS'] = null;
@@ -264,17 +264,17 @@ class EditHasil extends EditRecord
                         ->first();
 
         if ($persen) {
-            $absen = floatval($get('absen'));
+            $quiz = floatval($get('quiz'));
             $tugas = floatval($get('tugas'));
             $uts = floatval($get('uts'));
             $uas = floatval($get('uas'));
 
-            $nilai_absen = $absen * ($persen->persen_absen / 100);
+            $nilai_quiz = $quiz * ($persen->persen_quiz / 100);
             $nilai_tugas = $tugas * ($persen->persen_latihan / 100);
             $nilai_uts = $uts * ($persen->persen_UTS / 100);
             $nilai_uas = $uas * ($persen->persen_UAS / 100);
 
-            $total = $nilai_absen + $nilai_tugas + $nilai_uts + $nilai_uas;
+            $total = $nilai_quiz + $nilai_tugas + $nilai_uts + $nilai_uas;
             $huruf_mutu = $this->getLetterGrade($total);
 
             $set('total_nilai', $total);
@@ -309,7 +309,7 @@ class EditHasil extends EditRecord
         } elseif ($total_nilai >= 40) {
             return 'D';
         } else {
-            return 'E'; 
+            return 'E';
         }
     }
 
@@ -340,7 +340,7 @@ class EditHasil extends EditRecord
                 'kelas_id' => (int) $get['kelas_id'],
                 'nama_mahasiswa' => (string) $get['nama_mahasiswa'],
                 'nim' => (string) $get['nim'],
-                'absen' => (float) $get['absen'],
+                'quiz' => (float) $get['quiz'],
                 'tugas' => (float) $get['tugas'],
                 'uts' => (float) $get['uts'],
                 'uas' => (float) $get['uas'],
@@ -370,12 +370,12 @@ class EditHasil extends EditRecord
                         ->first();
 
         if ($persen) {
-            $nilai_absen = floatval($get['absen']) * ($persen->persen_absen / 100);
+            $nilai_quiz = floatval($get['quiz']) * ($persen->persen_quiz / 100);
             $nilai_tugas = floatval($get['tugas']) * ($persen->persen_latihan / 100);
             $nilai_uts = floatval($get['uts']) * ($persen->persen_UTS / 100);
             $nilai_uas = floatval($get['uas']) * ($persen->persen_UAS / 100);
 
-            return $nilai_absen + $nilai_tugas + $nilai_uts + $nilai_uas;
+            return $nilai_quiz + $nilai_tugas + $nilai_uts + $nilai_uas;
         }
 
         return null; // Atau tangani sesuai kebutuhan

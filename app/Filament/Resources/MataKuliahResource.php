@@ -16,9 +16,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Illuminate\Database\Eloquent\Collection;
 use Filament\Forms\Components\HasManyRepeater;
 use App\Filament\Resources\MatakuliahResource\Pages;
-use Illuminate\Database\Eloquent\Collection;
 
 
 class MatakuliahResource extends Resource
@@ -104,15 +104,15 @@ class MatakuliahResource extends Resource
                     ->html()
                     ->extraAttributes(['onclick' => 'event.stopPropagation();']),
 
-                TextColumn::make('materis')
-                    ->label('Materi')
-                    ->formatStateUsing(function ($record) {
-                        return $record->materis()->orderBy('pertemuan', 'asc')->get()->map(function ($materi) {
-                            return 'Pertemuan ' . $materi->pertemuan . ': <a href="' . asset('storage/' . $materi->file_materi) . '" target="_blank">' . $materi->judul_materi . '</a>';
-                        })->implode('<br>');
-                    })
-                    ->html()
-                    ->extraAttributes(['onclick' => 'event.stopPropagation();']),
+                // TextColumn::make('materis')
+                //     ->label('Materi')
+                //     ->formatStateUsing(function ($record) {
+                //         return $record->materis()->orderBy('pertemuan', 'asc')->get()->map(function ($materi) {
+                //             return 'Pertemuan ' . $materi->pertemuan . ': <a href="' . asset('storage/' . $materi->file_materi) . '" target="_blank">' . $materi->judul_materi . '</a>';
+                //         })->implode('<br>');
+                //     })
+                //     ->html()
+                //     ->extraAttributes(['onclick' => 'event.stopPropagation();']),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('nama_mk')
@@ -137,6 +137,12 @@ class MatakuliahResource extends Resource
                     ),
             ])
             ->actions([
+                Tables\Actions\Action::make('lihatMateri')
+                ->label('Lihat Materi')
+                ->icon('heroicon-o-document-text')
+                ->url(fn ($record) => route('filament.admin.resources.matakuliahs.view-materi', $record->id))
+                ->openUrlInNewTab()
+                ->color('secondary'),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()->after(
                     function (Matakuliah $record) {
@@ -201,6 +207,7 @@ class MatakuliahResource extends Resource
             'index' => Pages\ListMatakuliahs::route('/'),
             'create' => Pages\CreateMatakuliah::route('/create'),
             ' edit' => Pages\EditMatakuliah::route('/{record}/edit'),
+            'view-materi' => Pages\ViewMateri::route('/{record}/materi'),
         ];
     }
 }

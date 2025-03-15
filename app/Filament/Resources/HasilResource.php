@@ -7,18 +7,15 @@ use Filament\Tables;
 use App\Models\Hasil;
 use App\Models\Kelas;
 use App\Models\Persen;
-use Pages\CreateHasils;
-
 use Filament\Forms\Form;
 use App\Models\Matakuliah;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\FileUpload;
+use Illuminate\Support\Facades\DB;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\HasilResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\HasilResource\RelationManagers;
 
 class HasilResource extends Resource
 {
@@ -31,112 +28,114 @@ class HasilResource extends Resource
 
     public static function form(Forms\Form $form): Forms\Form
     {
-        return $form->schema([]);
+        return $form->schema([
+           
+        ]);
     }
+      
+    
 
+    
 
-
-
-
-
+    
 
     public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('nama_mahasiswa')
-                    ->label('Nama Mahasiswa')
-                    ->sortable()
-                    ->searchable(),
+{
+    return $table
+        ->columns([
+            Tables\Columns\TextColumn::make('nama_mahasiswa')
+                ->label('Nama Mahasiswa')
+                ->sortable()
+                ->searchable(),
+            
+            Tables\Columns\TextColumn::make('nim')
+                ->label('NIM')
+                ->sortable()
+                ->searchable(),
+                
+            Tables\Columns\TextColumn::make('matakuliah.nama_mk')
+                ->label('Mata Kuliah')
+                ->sortable()
+                ->searchable(),
+                
+            Tables\Columns\TextColumn::make('kelas.nama_kelas')
+                ->label('Kelas')
+                ->sortable()
+                ->searchable(),
+                
+            Tables\Columns\TextColumn::make('matakuliah.tahun_ajaran')
+                ->label('Tahun Ajaran')
+                ->sortable()
+                ->searchable(),    
 
-                Tables\Columns\TextColumn::make('nim')
-                    ->label('NIM')
-                    ->sortable()
-                    ->searchable(),
+            Tables\Columns\TextColumn::make('absen')
+                ->label('Nilai Absen')
+                ->sortable()
+                ->searchable(),
 
-                Tables\Columns\TextColumn::make('matakuliah.nama_mk')
-                    ->label('Mata Kuliah')
-                    ->sortable()
-                    ->searchable(),
+            Tables\Columns\TextColumn::make('tugas')
+                ->label('Nilai Tugas')
+                ->sortable()
+                ->searchable(),
 
-                Tables\Columns\TextColumn::make('kelas.nama_kelas')
-                    ->label('Kelas')
-                    ->sortable()
-                    ->searchable(),
+            Tables\Columns\TextColumn::make('uts')
+                ->label('Nilai UTS')
+                ->sortable()
+                ->searchable(),
 
-                Tables\Columns\TextColumn::make('matakuliah.tahun_ajaran')
-                    ->label('Tahun Ajaran')
-                    ->sortable()
-                    ->searchable(),
+            Tables\Columns\TextColumn::make('uas')
+                ->label('Nilai UAS')
+                ->sortable()
+                ->searchable(),
+                
+            Tables\Columns\TextColumn::make('total_nilai')
+                ->label('Total Nilai')
+                ->sortable()
+                ->searchable(),
 
-                Tables\Columns\TextColumn::make('absen')
-                    ->label('Nilai Absen')
-                    ->sortable()
-                    ->searchable(),
+            Tables\Columns\TextColumn::make('huruf_mutu')
+                ->label('Huruf Mutu')
+                ->sortable()
+                ->searchable(),
+                
 
-                Tables\Columns\TextColumn::make('tugas')
-                    ->label('Nilai Tugas')
-                    ->sortable()
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('uts')
-                    ->label('Nilai UTS')
-                    ->sortable()
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('uas')
-                    ->label('Nilai UAS')
-                    ->sortable()
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('total_nilai')
-                    ->label('Total Nilai')
-                    ->sortable()
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('huruf_mutu')
-                    ->label('Huruf Mutu')
-                    ->sortable()
-                    ->searchable(),
-
-
-
-            ])
-
-            ->filters([
-                SelectFilter::make('matakuliah_id')
-                    ->label('Mata Kuliah')
-                    ->relationship('matakuliah', 'nama_mk')
-                    ->searchable()
-                    ->placeholder('Pilih Mata Kuliah')
-                    ->getOptionLabelFromRecordUsing(function ($record) {
-                        // Menggabungkan nama mata kuliah dengan tahun ajaran untuk ditampilkan
-                        return "{$record->nama_mk} - {$record->tahun_ajaran}";
-                    }),
-
-
-                SelectFilter::make('kelas_id')
-                    ->label('Kelas')
-                    ->relationship('kelas', 'nama_kelas')
-                    ->searchable()
-                    ->placeholder('Pilih Kelas'),
+                
+        ])
+        
+        ->filters([
+            SelectFilter::make('matakuliah_id')
+    ->label('Mata Kuliah')
+    ->relationship('matakuliah', 'nama_mk')
+    ->searchable()
+    ->placeholder('Pilih Mata Kuliah')
+    ->getOptionLabelFromRecordUsing(function ($record) {
+        // Menggabungkan nama mata kuliah dengan tahun ajaran untuk ditampilkan
+        return "{$record->nama_mk} - {$record->tahun_ajaran}";
+    }),
 
 
+            SelectFilter::make('kelas_id')
+                ->label('Kelas')
+                ->relationship('kelas', 'nama_kelas')
+                ->searchable()
+                ->placeholder('Pilih Kelas'),
 
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+            
+            
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+            
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
+        ]);
+}
 
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
-    }
 
-
-    // Menambahkan tombol dan aksi untuk mengganti template
-
+     // Menambahkan tombol dan aksi untuk mengganti template
+     
 
     public static function getRelations(): array
     {
@@ -151,6 +150,7 @@ class HasilResource extends Resource
             'index' => Pages\ListHasils::route('/'),
             'create' => Pages\CreateHasil::route('/create'),
             'edit' => Pages\EditHasil::route('/{record}/edit'),
+            'nilai-mahasiswa' => Pages\NilaiMahasiswa::route('/nilai-mahasiswa/{matakuliah}/{kelas}'),
         ];
     }
 }

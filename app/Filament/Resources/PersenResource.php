@@ -3,15 +3,16 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms;
+use App\Models\Soal;
 use Filament\Tables;
 use App\Models\Kelas;
 use App\Models\Persen;
+use Filament\Forms\Form;
 use App\Models\Matakuliah;
-use Filament\Forms\Form; // Correct namespace
-use Filament\Tables\Table; // Pastikan import untuk Table benar
-use Filament\Resources\Resource;
-use App\Filament\Resources\PersenResource\Pages;
+use Filament\Tables\Table;
+use Filament\Resources\Resource; // Correct namespace
 use Filament\Forms\Components\Button;
+use App\Filament\Resources\PersenResource\Pages; // Pastikan import untuk Table benar
 
 class PersenResource extends Resource
 {
@@ -35,7 +36,7 @@ class PersenResource extends Resource
                     return "{$record->nama_mk} - {$record->tahun_ajaran}";
                 })
                 ->reactive(),
-            
+
             Forms\Components\Select::make('kelas_id')
                 ->label('Kelas')
                 ->searchable()
@@ -44,7 +45,7 @@ class PersenResource extends Resource
                     if (!$matakuliahId) {
                         return [];
                     }
-                    return \App\Models\Kelas::where('matakuliah_id', $matakuliahId)
+                    return Kelas::where('matakuliah_id', $matakuliahId)
                         ->pluck('nama_kelas', 'id');
                 })
                 ->required()
@@ -52,10 +53,10 @@ class PersenResource extends Resource
                     return [
                         function (string $attribute, $value, $fail) use ($get) {
                             // Cek apakah kombinasi duplikat
-                            $exists = \App\Models\Soal::where('matakuliah_id', $get('matakuliah_id'))
+                            $exists = Soal::where('matakuliah_id', $get('matakuliah_id'))
                                 ->where('kelas_id', $value)
                                 ->exists();
-            
+
                             if ($exists) {
                                 $fail('Kombinasi Mata Kuliah dan Kelas sudah ada.');
                             }
@@ -67,8 +68,8 @@ class PersenResource extends Resource
                     ->label('Nama Dosen')
                     ->required(),
 
-                Forms\Components\TextInput::make('persen_absen')
-                    ->label('Persen Absen (%)')
+                Forms\Components\TextInput::make('persen_quiz')
+                    ->label('Persen Quiz (%)')
                     ->numeric()
                     ->minValue(0)
                     ->maxValue(100)
@@ -111,7 +112,7 @@ class PersenResource extends Resource
                     ->required()
                     ->rule(['numeric', 'min:100', 'max:100'])
                     ->validationAttribute('Total Persentase')
-                
+
             ]);
     }
 
@@ -126,14 +127,14 @@ class PersenResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('matakuliah.nama_mk')->label('Mata Kuliah'),
-               
+
                 Tables\Columns\TextColumn::make('kelas.nama_kelas')->label('Kelas'),
                  Tables\Columns\TextColumn::make('matakuliah.tahun_ajaran')
                 ->label('Tahun Ajaran')
                 ->sortable()
                 ->searchable(),
                 Tables\Columns\TextColumn::make('nama_dosen')->label('Nama Dosen'),
-                Tables\Columns\TextColumn::make('persen_absen')->label('Persen Absen (%)'),
+                Tables\Columns\TextColumn::make('persen_quiz')->label('Persen Quiz (%)'),
                 Tables\Columns\TextColumn::make('persen_latihan')->label('Persen Latihan (%)'),
                 Tables\Columns\TextColumn::make('persen_UTS')->label('Persen UTS (%)'),
                 Tables\Columns\TextColumn::make('persen_UAS')->label('Persen UAS (%)'),

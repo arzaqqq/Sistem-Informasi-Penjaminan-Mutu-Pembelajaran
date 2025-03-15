@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\MatakuliahResource\Pages;
 
-use App\Filament\Resources\MatakuliahResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\MatakuliahResource;
 
 class ListMatakuliahs extends ListRecords
 {

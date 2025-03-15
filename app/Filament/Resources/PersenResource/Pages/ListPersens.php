@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\PersenResource\Pages;
 
+use Filament\Forms;
+use App\Models\Kelas;
 use Filament\Actions;
 use App\Models\Persen;
-use App\Models\Kelas;
 use App\Models\Matakuliah;
-use Filament\Forms;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
@@ -33,7 +33,7 @@ class ListPersens extends ListRecords
                     return "{$record->nama_mk} - {$record->tahun_ajaran}";
                 })
                 ->reactive(),
-            
+
             Forms\Components\Select::make('kelas_id')
                 ->label('Kelas')
                 ->searchable()
@@ -42,7 +42,7 @@ class ListPersens extends ListRecords
                     if (!$matakuliahId) {
                         return [];
                     }
-                    return \App\Models\Kelas::where('matakuliah_id', $matakuliahId)
+                    return Kelas::where('matakuliah_id', $matakuliahId)
                         ->pluck('nama_kelas', 'id');
                 })
                 ->required()
@@ -50,10 +50,10 @@ class ListPersens extends ListRecords
                     return [
                         function (string $attribute, $value, $fail) use ($get) {
                             // Cek apakah kombinasi duplikat
-                            $exists = \App\Models\Persen::where('matakuliah_id', $get('matakuliah_id'))
+                            $exists = Persen::where('matakuliah_id', $get('matakuliah_id'))
                                 ->where('kelas_id', $value)
                                 ->exists();
-            
+
                             if ($exists) {
                                 $fail('Kombinasi Mata Kuliah dan Kelas sudah ada.');
                             }
@@ -64,14 +64,14 @@ class ListPersens extends ListRecords
                     Forms\Components\Select::make('nama_dosen')
                         ->label('Nama Dosen')
                         ->options(function () {
-                           
+
                             return \App\Models\User::where('role', 'dosen')->pluck('name', 'name');
                         })
                         ->required(),
 
                     // Inputan persentase
-                    Forms\Components\TextInput::make('persen_absen')
-                        ->label('Persen Absen (%)')
+                    Forms\Components\TextInput::make('persen_quiz')
+                        ->label('Persen Quiz (%)')
                         ->numeric()
                         ->minValue(0)
                         ->maxValue(100)
@@ -122,7 +122,7 @@ class ListPersens extends ListRecords
                 ])
                 ->action(function (array $data) {
                     // Hitung total persentase
-                    $totalPersen = intval($data['persen_absen']) + intval($data['persen_latihan']) + intval($data['persen_UTS']) + intval($data['persen_UAS']);
+                    $totalPersen = intval($data['persen_quiz']) + intval($data['persen_latihan']) + intval($data['persen_UTS']) + intval($data['persen_UAS']);
 
                     // Validasi total persentase harus 100%
                     if ($totalPersen !== 100) {
@@ -151,7 +151,7 @@ class ListPersens extends ListRecords
                         'matakuliah_id' => $data['matakuliah_id'],
                         'kelas_id' => $data['kelas_id'],
                         'nama_dosen' => $data['nama_dosen'],
-                        'persen_absen' => $data['persen_absen'],
+                        'persen_quiz' => $data['persen_quiz'],
                         'persen_latihan' => $data['persen_latihan'],
                         'persen_UTS' => $data['persen_UTS'],
                         'persen_UAS' => $data['persen_UAS'],
@@ -170,14 +170,14 @@ class ListPersens extends ListRecords
 
     protected function calculateTotalPersen($set, $get)
     {
-        $persenAbsen = $get('persen_absen');
+        $persenquiz = $get('persen_quiz');
         $persenLatihan = $get('persen_latihan');
         $persenUTS = $get('persen_UTS');
         $persenUAS = $get('persen_UAS');
 
         // Periksa apakah semua input sudah terisi sebelum menghitung total
-        if ($persenAbsen !== null && $persenLatihan !== null && $persenUTS !== null && $persenUAS !== null) {
-            $totalPersen = intval($persenAbsen) + intval($persenLatihan) + intval($persenUTS) + intval($persenUAS);
+        if ($persenquiz !== null && $persenLatihan !== null && $persenUTS !== null && $persenUAS !== null) {
+            $totalPersen = intval($persenquiz) + intval($persenLatihan) + intval($persenUTS) + intval($persenUAS);
             $set('total_persen', $totalPersen);
         }
     }

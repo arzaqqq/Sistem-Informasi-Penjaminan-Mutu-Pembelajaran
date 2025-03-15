@@ -29,13 +29,13 @@ class HasilObserver
     public function saved(Hasil $hasil): void
     {
 
-        
+
         // Pastikan ada data Hasil yang sesuai dengan matakuliah_id ini
         if (Hasil::where('matakuliah_id', $hasil->matakuliah_id)->exists()) {
             // Hitung rata-rata berdasarkan matakuliah_id
             $averageData = Hasil::where('matakuliah_id', $hasil->matakuliah_id)
                 ->selectRaw('
-                    AVG(absen) as average_absen,
+                    AVG(quiz) as average_quiz,
                     AVG(tugas) as average_tugas,
                     AVG(uts) as average_uts,
                     AVG(uas) as average_uas,
@@ -45,7 +45,7 @@ class HasilObserver
 
             // Log untuk memeriksa data rata-rata
             Log::info('Rata-rata dihitung untuk matakuliah_id: ' . $hasil->matakuliah_id, [
-                'average_absen' => $averageData->average_absen,
+                'average_quiz' => $averageData->average_quiz,
                 'average_tugas' => $averageData->average_tugas,
                 'average_uts' => $averageData->average_uts,
                 'average_uas' => $averageData->average_uas,
@@ -57,7 +57,7 @@ class HasilObserver
                 ['matakuliah_id' => $hasil->matakuliah_id],
                 [
                     'jumlah_mahasiswa' => Hasil::where('matakuliah_id', $hasil->matakuliah_id)->count(),
-                    'average_absen' => $averageData->average_absen,
+                    'average_quiz' => $averageData->average_quiz,
                     'average_tugas' => $averageData->average_tugas,
                     'average_uts' => $averageData->average_uts,
                     'average_uas' => $averageData->average_uas,

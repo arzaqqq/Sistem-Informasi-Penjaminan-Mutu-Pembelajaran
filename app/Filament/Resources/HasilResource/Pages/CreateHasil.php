@@ -10,8 +10,8 @@ use App\Models\Matakuliah;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TextInput;
 use App\Filament\Resources\HasilResource;
 use Filament\Resources\Pages\CreateRecord;
 
@@ -39,7 +39,7 @@ class CreateHasil extends CreateRecord
                         ->afterStateUpdated(function ($set, $get) {
                             $set('kelas_id', null);
                             $set('nama_dosen', null);
-                            $set('persen_absen', null);
+                            $set('persen_quiz', null);
                             $set('persen_latihan', null);
                             $set('persen_UTS', null);
                             $set('persen_UAS', null);
@@ -59,13 +59,13 @@ class CreateHasil extends CreateRecord
                                 ->first();
 
                             if ($persen) {
-                                $set('persen_absen', $persen->persen_absen);
+                                $set('persen_quiz', $persen->persen_quiz);
                                 $set('persen_latihan', $persen->persen_latihan);
                                 $set('persen_UTS', $persen->persen_UTS);
                                 $set('persen_UAS', $persen->persen_UAS);
                                 $set('nama_dosen', $persen->nama_dosen);
                             } else {
-                                $set('persen_absen', null);
+                                $set('persen_quiz', null);
                                 $set('persen_latihan', null);
                                 $set('persen_UTS', null);
                                 $set('persen_UAS', null);
@@ -75,13 +75,13 @@ class CreateHasil extends CreateRecord
 
                     TextInput::make('nama_dosen')
                         ->label('Nama Dosen')
-                        
+
                         ->disabled(),
                 ]),
 
                 Grid::make(4)->schema([
-                    TextInput::make('persen_absen')
-                        ->label('Persen Absen')
+                    TextInput::make('persen_quiz')
+                        ->label('Persen quiz')
                         ->disabled(),
                     TextInput::make('persen_latihan')
                         ->label('Persen Latihan')
@@ -111,8 +111,8 @@ class CreateHasil extends CreateRecord
                                 ->numeric()
                                 ->required(),
 
-                            TextInput::make('absen')
-                                ->label('Absen ')
+                            TextInput::make('quiz')
+                                ->label('quiz ')
                                 ->required()
                                 ->reactive()
                                 ->afterStateUpdated(function ($state, $get, $set) {
@@ -172,32 +172,32 @@ class CreateHasil extends CreateRecord
     protected function updateTotalAndGrade($get, $set)
     {
         $mahasiswaNilai = $get('mahasiswa_nilai') ?? [];
-    
+
         if (!is_array($mahasiswaNilai)) {
             return;
         }
-    
+
         foreach ($mahasiswaNilai as $index => $data) {
             $persen = Persen::where('matakuliah_id', $get('matakuliah_id'))
                 ->where('kelas_id', $get('kelas_id'))
                 ->first();
-    
+
             // Pastikan semua nilai sudah diinput sebelum menghitung total dan huruf mutu
-            if ($persen && isset($data['absen'], $data['tugas'], $data['uts'], $data['uas'])) {
-                $absen = floatval($data['absen']);
+            if ($persen && isset($data['quiz'], $data['tugas'], $data['uts'], $data['uas'])) {
+                $quiz = floatval($data['quiz']);
                 $tugas = floatval($data['tugas']);
                 $uts = floatval($data['uts']);
                 $uas = floatval($data['uas']);
-    
-                $nilai_absen = $absen * ($persen->persen_absen / 100);
+
+                $nilai_quiz = $quiz * ($persen->persen_quiz / 100);
                 $nilai_tugas = $tugas * ($persen->persen_latihan / 100);
                 $nilai_uts = $uts * ($persen->persen_UTS / 100);
                 $nilai_uas = $uas * ($persen->persen_UAS / 100);
-    
+
                 // Hitung total nilai dan huruf mutu
-                $total = $nilai_absen + $nilai_tugas + $nilai_uts + $nilai_uas;
+                $total = $nilai_quiz + $nilai_tugas + $nilai_uts + $nilai_uas;
                 $huruf_mutu = $this->getLetterGrade($total);
-    
+
                 // Set total_nilai dan huruf_mutu hanya jika semua input sudah terisi
                 $set("mahasiswa_nilai.$index.total_nilai", $total);
                 $set("mahasiswa_nilai.$index.huruf_mutu", $huruf_mutu);
@@ -208,7 +208,7 @@ class CreateHasil extends CreateRecord
             }
         }
     }
-    
+
     protected function getLetterGrade($total_nilai)
     {
         if ($total_nilai >= 90) {
@@ -246,12 +246,12 @@ class CreateHasil extends CreateRecord
         $persen_id = $persen ? $persen->id : null;
 
         foreach ($get['mahasiswa_nilai'] as $row) {
-            $nilai_absen = floatval($row['absen']) * ($persen->persen_absen / 100);
+            $nilai_quiz = floatval($row['quiz']) * ($persen->persen_quiz / 100);
             $nilai_tugas = floatval($row['tugas']) * ($persen->persen_latihan / 100);
             $nilai_uts = floatval($row['uts']) * ($persen->persen_UTS / 100);
             $nilai_uas = floatval($row['uas']) * ($persen->persen_UAS / 100);
 
-            $total = $nilai_absen + $nilai_tugas + $nilai_uts + $nilai_uas;
+            $total = $nilai_quiz + $nilai_tugas + $nilai_uts + $nilai_uas;
             $huruf_mutu = $this->getLetterGrade($total);
 
             array_push($insert, [
@@ -260,7 +260,7 @@ class CreateHasil extends CreateRecord
                 'persen_id' => $persen_id,
                 'nama_mahasiswa' => $row['nama_mahasiswa'],
                 'nim' => $row['nim'],
-                'absen' => $row['absen'],
+                'quiz' => $row['quiz'],
                 'tugas' => $row['tugas'],
                 'uts' => $row['uts'],
                 'uas' => $row['uas'],
@@ -273,8 +273,8 @@ class CreateHasil extends CreateRecord
             Hasil::insert($insert);
         } else {
             return redirect()->back()->withErrors(['error' => 'Data persen tidak ditemukan untuk kombinasi mata kuliah dan kelas yang dipilih.']);
-        } 
+        }
 
         return redirect()->to('admin/hasils');
     }
-} 
+}

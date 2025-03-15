@@ -18,7 +18,7 @@ class AverageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $label = 'Rata-rata Nilai';
-   
+
     protected static ?string $navigationGroup = 'Hasil & Evaluasi';
     protected static ?int $navigationSort = 4;
 
@@ -42,11 +42,11 @@ class AverageResource extends Resource
                     ->label('Mata Kuliah')
                     ->sortable()
                     ->searchable(),
-                
+
                 Tables\Columns\TextColumn::make('matakuliah.tahun_ajaran')
                     ->label('Tahun Ajaran')
                     ->sortable()
-                    ->searchable(),    
+                    ->searchable(),
 
                 TextColumn::make('jumlah_mahasiswa')
                     ->label('Jumlah Mahasiswa')
@@ -54,10 +54,10 @@ class AverageResource extends Resource
                         return Hasil::where('matakuliah_id', $record->matakuliah_id)->count();
                     }),
 
-                TextColumn::make('average_absen')
-                    ->label('Rata-Rata Absen')
+                TextColumn::make('average_quiz')
+                    ->label('Rata-Rata Quiz')
                     ->getStateUsing(function ($record) {
-                        return Hasil::where('matakuliah_id', $record->matakuliah_id)->avg('absen');
+                        return Hasil::where('matakuliah_id', $record->matakuliah_id)->avg('quiz');
                     }),
 
                 TextColumn::make('average_tugas')
