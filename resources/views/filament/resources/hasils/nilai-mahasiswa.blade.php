@@ -70,8 +70,13 @@
                 // Menghitung distribusi nilai
                 $gradeDistribution = [
                     'A' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'A')->count(),
+                    'A-' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'A-')->count(),
+                    'B+' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'B+')->count(),
                     'B' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'B')->count(),
+                    'B-' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'B-')->count(),
+                    'C+' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'C+')->count(),
                     'C' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'C')->count(),
+                    'C-' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'C-')->count(),
                     'D' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'D')->count(),
                     'E' => App\Models\Hasil::where('matakuliah_id', $matakuliah)->where('kelas_id', $kelas)->where('huruf_mutu', 'E')->count(),
                 ];
@@ -86,7 +91,7 @@
                         <th class="text-center px-4 py-2 w-1/3">Jumlah</th>
                         <th class="text-center px-4 py-2 w-1/3">Persentase</th>
                     </tr>
-                    @foreach(['A', 'B', 'C', 'D', 'E'] as $grade)
+                    @foreach(['A','A-', 'B','B+','B-', 'C','C+','C-', 'D', 'E'] as $grade)
                         <tr class="border-b border-gray-200 dark:border-gray-700">
                             <td class="py-2 font-bold px-4 text-center">{{ $grade }}</td>
                             <td class="py-2 px-4 text-center">{{ $gradeDistribution[$grade] }}</td>

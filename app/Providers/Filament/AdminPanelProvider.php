@@ -31,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop(true)
             ->id('admin')
             ->path('admin')
+
             ->login()
             ->brandName('SIMPEL - SIPIL UNIMAL')
             ->colors([
