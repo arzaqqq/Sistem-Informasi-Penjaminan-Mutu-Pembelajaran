@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\HtmlString;
 use App\Filament\Resources\RubrikResource\Pages;
 use App\Filament\Resources\RubrikResource\RelationManagers;
 
@@ -69,6 +70,7 @@ class RubrikResource extends Resource
 
                 FileUpload::make('file_rubrik_quiz')
                     ->label('File Rubrik Quiz')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*File yang dapat diupload bisa lebih dari satu.</span>'))
                     ->required()
                     ->multiple() // Menandakan bahwa ini adalah array file
                     ->preserveFilenames()
@@ -76,6 +78,7 @@ class RubrikResource extends Resource
 
                 FileUpload::make('file_rubrik_latihan')
                     ->label('File Rubrik Latihan')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*File yang dapat diupload bisa lebih dari satu.</span>'))
                     ->required()
                     ->multiple() // Menandakan bahwa ini adalah array file
                     ->preserveFilenames()
@@ -83,12 +86,14 @@ class RubrikResource extends Resource
 
                 FileUpload::make('file_rubrik_uts')
                     ->label('File Rubrik UTS')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->required()
                     ->preserveFilenames()
                     ->directory('rubrik UTS'),
 
                 FileUpload::make('file_rubrik_uas')
                     ->label('File Rubrik UAS')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->required()
                     ->preserveFilenames()
                     ->directory('rubrik UAS'),

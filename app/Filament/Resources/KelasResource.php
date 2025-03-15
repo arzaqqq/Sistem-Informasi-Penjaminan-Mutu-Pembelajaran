@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\KelasResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 use App\Filament\Resources\KelasResource\RelationManagers;
 
 
@@ -72,12 +73,14 @@ class KelasResource extends Resource
 
 
                 Forms\Components\FileUpload::make('file_template')
-                    ->label('File Template')
+                    ->label('File Template Kontrak Kuliah')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->directory('file template kelas')
                     ->preserveFilenames(),
 
                 Forms\Components\FileUpload::make('file_kelas')
-                    ->label('File Kontak')
+                    ->label('File Kontrak Kuliah')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->directory('file kontark kelas')
                     ->preserveFilenames(),
             ])

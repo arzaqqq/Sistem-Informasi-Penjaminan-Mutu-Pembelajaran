@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\FileHasilResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\HtmlString;
 use App\Filament\Resources\FileHasilResource\RelationManagers;
 
 class FileHasilResource extends Resource
@@ -73,6 +74,7 @@ class FileHasilResource extends Resource
 
                 FileUpload::make('file_hasil')
                     ->label('File Hasil Nilai')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->required()
                     ->preserveFilenames()
                     ->directory('file hasil')

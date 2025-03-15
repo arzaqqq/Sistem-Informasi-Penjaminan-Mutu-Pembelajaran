@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use App\Filament\Resources\SoalResource\Pages;
 
 class SoalResource extends Resource
@@ -73,6 +74,7 @@ class SoalResource extends Resource
                     ->reorderable()
                     ->openable()
                     ->downloadable()
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*File Quiz bisa diupload lebih dari satu.</span>'))
                     ->required(),
 
                 Forms\Components\FileUpload::make('latihan')
@@ -80,17 +82,20 @@ class SoalResource extends Resource
                     ->directory('File Soal Latihan')
                     ->preserveFilenames()
                     ->multiple()
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*File Latihan bisa diupload lebih dari satu.</span>'))
                     ->required(),
 
                 Forms\Components\FileUpload::make('UTS')
                     ->label('File UTS ')
                     ->directory('Soal UTS')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file UTS yang dapat diupload.</span>'))
                     ->preserveFilenames()
                     ->required(), // No multiple files for UTS
 
                 Forms\Components\FileUpload::make('UAS')
                     ->label('File UAS ')
                     ->directory('Soal UAS')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file UAS yang dapat diupload.</span>'))
                     ->preserveFilenames()
                     ->required(), // No multiple files for UAS
             ]);

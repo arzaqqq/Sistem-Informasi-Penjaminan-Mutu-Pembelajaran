@@ -26,11 +26,9 @@ class HasilResource extends Resource
     protected static ?string $navigationGroup = 'Hasil & Evaluasi';
     protected static ?int $navigationSort = 3;
 
-    public static function form(Forms\Form $form): Forms\Form
+    public static function form(Form $form): Form
     {
-        return $form->schema([
-           
-        ]);
+        return $form->schema([]);
     }
       
     

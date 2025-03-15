@@ -65,7 +65,7 @@ class DokumenResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('jenis_dokumen_id.jenis_dokumen')
+                TextColumn::make('jenisDokumen.jenis_dokumen')
                     ->label('Jenis Dokumen')
                     ->sortable()
                     ->searchable(),
@@ -86,15 +86,10 @@ class DokumenResource extends Resource
                     ->searchable(),
             ])
             ->filters([
-                SelectFilter::make('jenis_dokumen')
+                SelectFilter::make('jenis_dokumen_id')
                     ->label('Jenis Dokumen')
-                    ->options([
-                        'Kurikulum' => 'Kurikulum',
-                        'SK' => 'SK',
-                        'SPMI' => 'SPMI',
-                        'AMI' => 'AMI',
-                    ]),
-            ])
+                    ->relationship('jenisDokumen', 'jenis_dokumen')
+            ])            
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

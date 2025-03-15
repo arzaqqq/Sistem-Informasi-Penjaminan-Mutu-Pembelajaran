@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\HtmlString;
 use App\Filament\Resources\SampelJawabanResource\Pages;
 
 class SampelJawabanResource extends Resource
@@ -42,24 +43,28 @@ class SampelJawabanResource extends Resource
 
                 Forms\Components\FileUpload::make('sampel_quiz')
                     ->label('Sampel Quiz')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->directory('Sample Quiz')
                     ->preserveFilenames()
                     ->required(),
 
                 Forms\Components\FileUpload::make('sampel_latihan')
                     ->label('Sampel Latihan')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->directory('Sampel Latihan')
                     ->preserveFilenames()
                     ->required(),
 
                 Forms\Components\FileUpload::make('sampel_UTS')
                     ->label('Sampel UTS')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->directory('Sampel UTS')
                     ->preserveFilenames()
                     ->required(),
 
                 Forms\Components\FileUpload::make('sampel_UAS')
                     ->label('Sampel UAS')
+                    ->helperText(new HtmlString('<span style="color: red; font-weight: normal;">*Hanya satu file yang dapat diupload.</span>'))
                     ->directory('Sampel UAS')
                     ->preserveFilenames()
                     ->required(),
