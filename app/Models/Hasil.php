@@ -51,7 +51,7 @@ class Hasil extends Model
     {
         return self::selectRaw('
                 matakuliah_id,
-                AVG(1uiz) as avg_quiz,
+                AVG(quiz) as avg_quiz,
                 AVG(tugas) as avg_tugas,
                 AVG(uts) as avg_uts,
                 AVG(uas) as avg_uas
