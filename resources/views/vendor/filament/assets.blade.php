@@ -1,6 +1,6 @@
 <head>
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('img/logo1.png') }}" type="image/x-icon">
+
 
     <!-- Skrip dan aset lainnya -->
     @if (isset($data))

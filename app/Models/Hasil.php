@@ -16,7 +16,7 @@ class Hasil extends Model
         return $this->hasMany(Persen::class);
     }
 
-    
+
     public function matakuliah()
     {
         return $this->belongsTo(Matakuliah::class, 'matakuliah_id');
@@ -33,7 +33,7 @@ class Hasil extends Model
         return $this->belongsTo(Evaluasi::class);
     }
 
-   
+
 
     public function avarage()
     {
@@ -51,7 +51,7 @@ class Hasil extends Model
     {
         return self::selectRaw('
                 matakuliah_id,
-                AVG(absen) as avg_absen,
+                AVG(1uiz) as avg_quiz,
                 AVG(tugas) as avg_tugas,
                 AVG(uts) as avg_uts,
                 AVG(uas) as avg_uas
@@ -60,6 +60,6 @@ class Hasil extends Model
             ->with('matakuliah') // Mengambil data mata kuliah terkait
             ->get();
     }
-   
-    
+
+
 }
