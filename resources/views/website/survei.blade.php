@@ -1,0 +1,291 @@
+@php
+    $pertanyaan = get_questions('_pertanyaan');
+    $totalPertanyaan = count($pertanyaan);
+    $pertanyaanPerPage = 5;
+    $pages = ceil($totalPertanyaan / $pertanyaanPerPage);
+@endphp
+
+@extends('layout.template')
+
+@section('title')
+SIMPEL - Survei Evaluasi
+@endsection
+
+@section('content')
+
+
+{{-- Awal Survei --}}
+
+<div class="container p-6 sm:p-10 mx-auto bg-cover bg-center" style="background-image: url('img/bg4.jpg')">
+    <div class="flex items-center justify-center">
+        <div class="w-16 sm:w-24 h-1 bg-green-600 mr-2 sm:mr-4 mb-4 mt-4" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200"></div>
+        <h1 class="text-xl sm:text-2xl font-bold text-center text-slate-800">Survei Evaluasi</h1>
+        <div class="w-16 sm:w-24 h-1 bg-green-600 ml-2 sm:ml-4 mb-4 mt-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200"></div>
+    </div>    
+
+    <div class="max-w-2xl sm:max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-lg shadow-lg">
+        <form id="surveyForm" action="{{ route('survey.store') }}" method="POST" class="bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+                @if (session('success'))
+                <div id="success-alert" class="text-xs sm:text-sm p-2 bg-green-100 text-green-700 rounded">
+                {{ session('success') }}
+                </div>
+                @endif
+            @csrf
+            <div class="space-y-6 step" style="display: block">
+                <div class="mb-6 sm:mb-8 border-b border-gray-300 pb-4">
+                    <h2 class="text-base sm:text-lg font-semibold text-gray-900">PETUNJUK PENGISIAN</h2>
+                    <ol class="list-decimal ml-5 text-gray-700 text-sm sm:text-base">
+                        <li>Kuesioner ini wajib diisi oleh setiap mahasiswa Jurusan Teknik Sipil Fakultas Teknik Universitas Malikussaleh.</li>
+                        <li>Setiap kuesioner berlaku untuk satu dosen (mohon isi ulang/ submit respons baru untuk mengevaluasi dosen lainnya).</li>
+                        <li>Mahasiswa wajib mengisi sejumlah matakuliah yang diambil untuk setiap dosen pengampu (Misal: jika mengambil 12 MK dengan masing-masing 2 dosen pengampu, maka harap mengisi form 24 kali).</li>
+                        <li>Kuesioner bersifat rahasia (tidak disebarluaskan).</li>
+                        <li>Kuesioner tidak mempengaruhi nilai Matakuliah.</li>
+                        <li>Mohon diisi dengan SERIUS dan JUJUR ke dalam form ini.</li>
+                    </ol>
+                </div>
+                <div class="border-b border-gray-900/10 pb-6 sm:pb-12 mt-2">
+                    <h2 class="text-sm sm:text-base font-semibold leading-7 text-gray-900">Data Mahasiswa</h2>
+                    <p class="mt-1 text-xs sm:text-sm leading-6 text-gray-600">Data anda bersifat rahasia</p>
+          
+                    <div class="mt-6 sm:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
+                        <div class="col-span-1 sm:col-span-2">
+                            <label for="nama" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Nama Lengkap</label>
+                            <div class="mt-2">
+                                <input type="text" name="nama" id="nama" placeholder="Contoh: Muhammad Ali" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="nim" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">NIM</label>
+                            <div class="mt-2">
+                                <input type="text" name="nim" id="nim" placeholder="Contoh: 201901000" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Email Mahasiswa</label>
+                            <div class="mt-2">
+                                <input type="email" name="email" id="email" placeholder="Contoh: muhammad.20190@mhs.unimal.ac.id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="matakuliah_id" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Matakuliah</label>
+                            <div class="mt-2">
+                                <select name="matakuliah_id" id="matakuliah_id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                                    <option value="">-- Pilih Matakuliah --</option>
+                                    @foreach(get_matakuliahs() as $matakuliah)
+                                    <option value="{{ $matakuliah->id }}">{{ $matakuliah->nama_mk }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="kelas_id" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Kelas</label>
+                            <div class="mt-2">
+                                <select name="kelas_id" id="kelas_id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                                    <option value="">-- Pilih Kelas --</option>
+                                    @if(old('matakuliah_id'))
+                                        @foreach(get_kelas_by_matakuliah(old('matakuliah_id')) as $kelas)
+                                        <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="user_id" class="block text-sm sm:text-sm font-medium leading-6 text-gray-900">Nama Dosen</label>
+                            <div class="mt-2">
+                                <select name="user_id" id="user_id" class="block w-full rounded-md py-1.5 text-gray-900 ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm" required>
+                                    <option value="">-- Pilih Dosen --</option>
+                                    @foreach(get_dosens() as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            @foreach(range(1, $pages) as $page)
+            <div class="space-y-12 step" style="display: {{ $page == 0 ? 'block' : 'none' }}">
+                    @php
+                        $start = ($page - 1) * $pertanyaanPerPage;
+                        $end = min($start + $pertanyaanPerPage, $totalPertanyaan);
+                    @endphp
+                    @for($i = $start; $i < $end; $i++)
+                    @php
+                        $pertanyaanItem = $pertanyaan[$i];
+                    @endphp
+                        <fieldset>
+                            <legend class="text-sm font-semibold leading-6 text-gray-900">{{ $pertanyaanItem->label }}</legend>
+                            <p class="mt-1 text-sm leading-6 text-gray-600">{{ $pertanyaanItem->value }}</p>
+                            <div class="mt-6 space-y-6">
+                                @foreach([1 => 'Sangat Buruk', 2 => 'Buruk', 3 => 'Cukup', 4 => 'Baik', 5 => 'Sangat Baik'] as $ratingValue => $ratingLabel)
+                                    <div class="flex items-center gap-x-3">
+                                        <input name="ratings[{{ $pertanyaanItem->id }}][rating]" type="radio" value="{{ $ratingValue }}" class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600" required>
+                                        <label class="block text-sm font-medium leading-6 text-gray-900">{{ $ratingLabel }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </fieldset>
+                    @endfor
+                </div>
+                @endforeach
+                <div class="mt-6 flex items-center justify-center gap-x-6">
+                    <button type="button" class="prevBtn rounded-md bg-gray-600 px-3 py-2 text-sm sm:text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">Sebelumya</button>
+                    <button type="button" class="nextBtn rounded-md bg-green-600 px-3 py-2 text-sm sm:text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Selanjutnya</button>
+                    <button type="submit" class="submitBtn rounded-md bg-indigo-600 px-3 py-2 text-sm sm:text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll(".step");
+    const nextBtn = document.querySelectorAll(".nextBtn");
+    const prevBtn = document.querySelectorAll(".prevBtn");
+    const submitBtn = document.querySelectorAll(".submitBtn");
+
+    // Button naik ke atas
+    document.querySelectorAll('.nextBtn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Scroll ke bagian atas halaman
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        document.querySelectorAll('.prevBtn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Scroll ke bagian atas halaman
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Button otomatis
+    function updateButtons() {
+        if (currentStep === steps.length - 1) {
+            // Halaman terakhir
+            nextBtn.forEach(btn => btn.style.display = "none");
+            submitBtn.forEach(btn => btn.style.display = "inline-block");
+        } else {
+            // Bukan halaman terakhir
+            nextBtn.forEach(btn => btn.style.display = "inline-block");
+            submitBtn.forEach(btn => btn.style.display = "none");
+        }
+
+        // Tombol "Sebelumnya" hanya ditampilkan jika bukan di langkah pertama
+        prevBtn.forEach(btn => btn.style.display = currentStep === 0 ? "none" : "inline-block");
+    }
+
+        nextBtn.forEach(button => {
+        button.addEventListener("click", () => {
+            const currentStepFields = steps[currentStep].querySelectorAll("input[required], select[required]");
+            let allValid = true;
+            let firstInvalidField = null;
+
+            currentStepFields.forEach(field => {
+                // Validasi email secara khusus jika input email
+                if (field.type === "email") {
+                    const emailPattern = /^[a-zA-Z0-9._%+-]+@mhs\.unimal\.ac\.id$/;
+                    if (!emailPattern.test(field.value)) {
+                        allValid = false;
+                        field.setCustomValidity("Email harus menggunakan @mhs.unimal.ac.id");
+                        field.reportValidity(); // Menampilkan pesan validasi
+                        field.classList.add("input-invalid"); // Tambah class jika invalid
+                        if (!firstInvalidField) {
+                            firstInvalidField = field; // Simpan input pertama yang tidak valid
+                        }
+                    } else {
+                        field.setCustomValidity(""); // Reset validasi jika benar
+                        field.classList.remove("input-invalid"); // Hapus class jika valid
+                    }
+                }
+
+                // Validasi form biasa
+                if (!field.checkValidity()) {
+                    allValid = false;
+                    field.reportValidity(); // Menampilkan pesan validasi
+                    field.classList.add("input-invalid"); // Tambah class jika invalid
+                    if (!firstInvalidField) {
+                        firstInvalidField = field; // Simpan input pertama yang tidak valid
+                    }
+                } else {
+                    field.classList.remove("input-invalid"); // Hapus class jika valid
+                }
+            });
+
+            // Jika ada input yang tidak valid, fokuskan ke input pertama yang tidak valid
+            if (firstInvalidField) {
+                firstInvalidField.focus();
+            }
+
+            // Jika semua valid, lanjut ke langkah berikutnya
+            if (allValid && currentStep < steps.length - 1) {
+                steps[currentStep].style.display = "none";
+                currentStep++;
+                steps[currentStep].style.display = "block";
+                updateButtons();
+            }
+        });
+    });
+
+
+    prevBtn.forEach(button => {
+        button.addEventListener("click", () => {
+            if (currentStep > 0) {
+                steps[currentStep].style.display = "none";
+                currentStep--;
+                steps[currentStep].style.display = "block";
+                updateButtons();
+            }
+        });
+    });
+
+    // Update tombol saat pertama kali halaman dimuat
+    updateButtons();
+
+    // Kelas Matakuliah
+    document.getElementById('matakuliah_id').addEventListener('change', function() {
+        const matakuliahId = this.value;
+        const kelasSelect = document.getElementById('kelas_id');
+        
+        kelasSelect.innerHTML = '<option value="">-- Pilih Kelas --</option>'; // Reset pilihan kelas
+
+        if (matakuliahId) {
+            fetch(`/kelas/${matakuliahId}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(kelas => {
+                        const option = document.createElement('option');
+                        option.value = kelas.id;
+                        option.textContent = kelas.nama_kelas;
+                        kelasSelect.appendChild(option);
+                    });
+                });
+        }
+    });
+
+    // Untuk alert
+    document.addEventListener('DOMContentLoaded', function() {
+        const successAlert = document.getElementById('success-alert');
+        
+        if (successAlert) {
+            
+            setTimeout(function() {
+                successAlert.style.display = 'none';
+            }, 2000); 
+        }
+    });
+
+
+</script>
+
+{{-- Akhir Survei --}}
+
+@endsection

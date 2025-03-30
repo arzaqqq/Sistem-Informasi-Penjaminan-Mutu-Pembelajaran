@@ -2,7 +2,15 @@
 
 namespace App\Providers;
 
+
+
+use App\Models\Hasil;
+use Illuminate\View\View;
+use Filament\Facades\Filament;
+use App\Observers\HasilObserver;
 use Illuminate\Support\ServiceProvider;
+use App\Filament\Resources\SoalResource;
+use Filament\Support\Facades\FilamentView;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,8 +25,16 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+        FilamentView::registerRenderHook(
+            'panels::auth.login.form.after',
+            fn(): View => view('filament.login_extra')
+        );
+        require_once base_path('app/helpers.php');
+
+
+        Hasil::observe(HasilObserver::class);
+        
     }
 }
